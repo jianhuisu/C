@@ -1,8 +1,8 @@
 第一章 快速上手
 
 1 文件命名
-    hello.h  存储函数原型
-    hello.c  俗称 头文件 存储实际源码
+    hello.h  存储函数原型 俗称 头文件 
+    hello.c  存储实际源码
 
 2 注释规则
     /* statement */
