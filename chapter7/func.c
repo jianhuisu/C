@@ -1,29 +1,21 @@
 #include <stdio.h>
+#define WIDTH 20
+void starbar(void);
 
 void main(void)
 {
-    int key = 9;
-    int array[10] = {1,2,3,4,9,5,6,8};
-    int *p;
-    p = find_int(key,array,sizeof(array));
-
-    printf("special key addr is %d\n",p);
-
+    starbar();
+    printf("My Name Is sujianhui\n");
+    starbar();
 }
 
-int *
-find_int(int key , int array[],int array_len)
+void starbar(void)
 {
-    int i;
-
-    for(i = 0;i < array_len;i++)
+    int count;
+    for(count = 1;count < WIDTH;count++)
     {
-        // 检查这个位置的值 是否为需要查找的值
-        if(array[i] == key)
-        {
-            return &array[i];
-        }
+        putchar('*');
     }
 
-    return NULL;
+    putchar('\n');
 }
