@@ -65,10 +65,33 @@
 
 
 
+动态分配内存
+
+stdlib.h 中
+
+malloc(n)  分配内存 ， 但是不会为该块内存起名（绑定变量名）
+
+@param n : 需要申请的字节数
+@return 动态分配内存块的首字节地址 question:（首元素地址 ？）
+
+example:
+
+double * pt;
+
+pt = (double *) malloc(30 * sizeof(double) )
+
+申请了 30个double类型大小的内存块
+
+可以像操作数组一样来操作该动态分配的内存
+pt[0] 访问首元素
 
 
+malloc( ) 函数与 free() 函数配套使用
 
-
+1 不可以使用 free() 释放非 malloc() 分配的内存
+2 动态分配变量的生命期是 从 malloc() 开始到 free（） 释放为止
+3 free() 参数为 malloc() 返回的地址
+4 内存分配失败 使用 exit() 函数结束程序 EXIT_SUCCESS  EXIT_FAILURE
 
 
 
