@@ -17,7 +17,7 @@ c源代码字符映射 调整源代码
 
 #undef  (取消宏 macro)
 
-    取消对常量的定义，同样适用于原来没有声明的常量
+取消对常量的定义，同样适用于原来没有声明的常量
 
 
     #define LIM 400
@@ -27,13 +27,13 @@ c源代码字符映射 调整源代码
 -------------------------------------
 
 条件编译
-#ifdef NAME              => 如果已经定义了标识符 NAME
-#include <string.h>
-#define SEX_LEN 20
-#else
-#include <stdlib.h>
-#define SEX_LEN 10
-#endif
+    #ifdef NAME              => 如果已经定义了标识符 NAME
+    #include <string.h>
+    #define SEX_LEN 20
+    #else
+    #include <stdlib.h>
+    #define SEX_LEN 10
+    #endif
 
 -----------------------------------------
  ifndef 指令
@@ -41,27 +41,27 @@ c源代码字符映射 调整源代码
       常用于防止多次包含一个文件
 
 
-#ifndef NAME
-#ifndef NAME
-#define NAME 20
-#endif
+    #ifndef NAME
+    #ifndef NAME
+    #define NAME 20
+    #endif
 
 ----------------------------------------------
 
-#if defined (NAME)
-#elif defined (VAX)
-#endif
+    #if defined (NAME)
+    #elif defined (VAX)
+    #endif
 
 ---------------------------------------------
 
-#line 100 "mc.h"   // 重置 __LINE__  __FILE__ 宏预定义
-#error error_msg   // 让预处理发出一条错误信息
+    #line 100 "mc.h"   // 重置 __LINE__  __FILE__ 宏预定义
+    #error error_msg   // 让预处理发出一条错误信息
 
 -----------------------------------------------
 
 pragma 编译指示
 
-#pragma c9x on
+    #pragma c9x on
 
 -----------------------------------------------
 
