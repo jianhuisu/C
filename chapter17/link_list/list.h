@@ -5,8 +5,8 @@
 #define TSIZE 40
 
 // 定义 Item 类型
-typedef struct film{
-    char[TITLE_SIZE];
+typedef struct film {
+    char title[TSIZE];
     int rating;
 }Item;
 
