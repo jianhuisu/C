@@ -46,11 +46,14 @@ void main(void)
 
     printf("item total %d \n",pQueue.items);
 
+    Traversal(&pQueue,showQueueItem);
 
     // 删除项
     DeleteQueueItem(&pQueue);
 
     printf("item total  %d \n",pQueue.items);
+
+    Traversal(&pQueue,showQueueItem);
 
     // 清空队列
     EmptyTheQueue(&pQueue);
@@ -59,5 +62,5 @@ void main(void)
 
 void showQueueItem(Item item)
 {
-   printf("title: %s rating: %d \n",item.title,item.rating);
+   printf("title: %20s rating: %d \n",item.title,item.rating);
 }

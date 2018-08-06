@@ -62,16 +62,30 @@ bool InsertQueueItem(Item item,Queue * pQueue)
         exit(1);
     }
 
-    // 首元素
-    if(QueueIsEmpty( pQueue ))
-    {
-        pQueue->first = pNew;
-    }
-
 
     // copy 新节点
     pNew->item = item;
     pNew->next = NULL;
+
+    // 方法 1 首元素
+//    if(QueueIsEmpty( pQueue ))
+//    {
+//        pQueue->first = pNew;
+//        pQueue->last = pNew;
+//    }
+
+// pQueue->last->next = pNew;
+
+    // 方法 2 与 方法 1 作用相同 但是比第一种好
+    if(QueueIsEmpty( pQueue ))
+    {
+        pQueue->first = pNew;
+    }
+    else
+    {
+        pQueue->last->next = pNew;
+    }
+
 
     pQueue->last = pNew;
 
@@ -91,7 +105,7 @@ bool InsertQueueItem(Item item,Queue * pQueue)
 bool DeleteQueueItem(Queue * pQueue)
 {
 
-    Node * NewFirst;
+    Node * OldFirst;
 
     // 首元素
     if(QueueIsEmpty(pQueue))
@@ -101,10 +115,11 @@ bool DeleteQueueItem(Queue * pQueue)
 //         exit(1);
     }
 
-    NewFirst = pQueue->first->next;
-    free(pQueue->first);
+    OldFirst = pQueue->first;
+    pQueue->first = pQueue->first->next;
 
-    pQueue->first = NewFirst;
+    // 原首元素
+    free(OldFirst);
 
     pQueue->items--;
     if(pQueue->items == 0)
@@ -136,9 +151,9 @@ void Traversal(Queue * pQueue,void (*pfun)(Item item))
 
     while(count < pQueue->items )
     {
-//        这样处理有问题
-//        (*pfun)(tp->item);
-//        tp = tp->next;
+
+        (*pfun)(tp->item);
+        tp = tp->next;
 
         count++;
     }
