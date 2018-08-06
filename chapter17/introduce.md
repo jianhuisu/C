@@ -29,30 +29,22 @@
     展示链表
     添加项
 
-2 建立接口
+2 创建接口
 
     c 把所有的函数和类型集合成为一个软件包的方法是:
        (1) 把类型定义 和 函数原型 放置在同一个头文件中     list.h
        (2) 函数定义               list.c
        (3) 调用接口的主文件
 
+3 使用接口
+    接口实现 list.c 此时为空函数  链入主程序只为配合业务逻辑实现
 
-#创建一个List
-#创建一个Item
-#
-#初始化链表
-#判断链表是否已满
-#    未满 添加item
-#展示
-
-
-
-使用接口的目的是 让使用者将精力投入与 使用 而不是 实现
+4 实现接口
+    对于辅助函数
+    list.c : static void CopyToNode(Item item,Node * pnew)
+    要把 辅助函数声明内联函数  只能在 list.c 文件中使用
 
 
 question 同时编译的多个文件中 只要一个文件中引入了 头文件 即可,重复引入会报错
-
-In file included from /home/www/C-and-Pointer/chapter17/link_list/list.c:3:
-
-
 question 编译的顺序会造成错误吗
+
