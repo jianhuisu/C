@@ -1,3 +1,83 @@
+第一章 快速上手
+
+1 文件命名
+    hello.h  存储函数原型 俗称 头文件 
+    hello.c  存储实际源码
+
+2 注释规则
+    /* statement */
+    注释不能嵌套
+
+    注释块代码 采用逻辑注释方式
+    #if 0
+        statement
+    #endif
+3 预处理指令(preprocessor directive)
+    预处理器处理 预处理指令
+
+    #include
+    #define
+
+4 main() 函数
+
+    每一个c程序都必须要有main函数,因为main函数是程序执行的起点
+
+int 表示 main() 函数返回值类型
+void 表示 main 函数不接受任何参数
+
+int  main(void)
+{
+    printf("hello world\n");
+    return 1;
+}
+
+5 编译、运行
+    gcc main.c
+    gcc -o ~/c.out main.c
+
+
+
+第二章 基本概念
+
+1 环境
+编译环境与运行环境可以不处于同一机器上
+
+翻译环境 translation environment
+
+    compile main.c
+
+    预处理器处理 预处理指令
+        进行 include 、常量替换等文本操作
+    解析 parse
+        语句解析
+        [优化器  optimizer]
+
+    生成目标代码  target code
+        main.o
+    连接器  linker
+        链接启动代码
+
+    可执行文件
+        a.out
+
+    gcc -c -o /home/www/main.out main.c
+
+        -c  Compile or assemble the source files
+        -o  指定目标代码名称
+
+
+
+执行环境 execution environment
+
+        加载到内存
+        宿主环境
+            由操作系统完成
+        自由环境
+            加载到ROM中
+
+
+         一个C程序的源代码可能分布于多个文件中 , 但是一个函数只能完整的出现在一个文件中
+
 第三章 数据
 
     这一章需要记忆的知识点比较多 基础差 压力大啊
@@ -129,6 +209,7 @@
         关键字：用于在变量的声明中 修饰变量的链接属性
 
         static
+
             如果某个声明在正常情况下具有 external 属性 那么经过 static 关键字修饰后 链接属性变为 internal
             意思是 该变量被当前源文件私有化 在其它源文件中 reference 同名变量时 不同于该变量
 
@@ -147,3 +228,80 @@
 
 
     这一章需要以后再完善
+
+
+第四章 结构语句
+
+    c 的语句与php的语句结构基本一致 所以权当复习一下
+
+if else
+
+if(express)
+{
+    ; /* 这是一个空语句*/
+}
+
+while( express )
+{
+    statement
+
+}
+
+在 while 的循环体中 使用 break 语句 永久退出循环
+在 while 的循环体中 使用 continue 语句 退出当前循环 执行 express 判断
+
+for
+
+for(express1;express2;express3)
+{
+    statement;
+}
+
+express1 初始化部分  只在循环开始时执行一次
+express2 条件部分    循环体每次执行之前调用
+express3 调整部分    条件部分执行之前调用
+
+do while
+switch
+
+switch 语句书中表述的逻辑非常清晰 这里引用一下
+
+express 的结果必须是整形值
+
+case 标签并不是把 语句列表划分为几部分 而是确定语句列表的 进入点 而已
+如下 express 值为 3 时  ，从 case 3 进入语句列表开始执行 一直贯穿至语句列表末尾（case6：statement6）
+
+switch(express)
+{
+    case 1 :
+    case 2 :
+    case 3 :
+        statement 3
+    case 4 :
+    case 5 :
+    case 6 :
+        statement 6
+    default:
+}
+
+那么如何阻止执行贯穿呢 这里引出 break 的定义
+break：划分语句列表为不同部分
+
+备注：每个switch 都要有 default 子句;
+
+goto
+
+goto 语句标签;
+
+语句标签定义:
+    标识符:
+    example
+
+    goto FUNC_END;
+        ...
+
+    FUNC_END:
+        printf("jump to here");
+
+goto 语句使用场景 跳出多层循环
+出于程序异常反馈角度 作者建议我们尽量避免使用 goto 语句

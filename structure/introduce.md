@@ -167,8 +167,6 @@ struct name docters[2] = {
 
 带伸缩型数组的数据结构
 
-
-
     声明要求
         1 结构中至少包含一个成员
         2 伸缩型数据为结构中最后一个成员
@@ -197,9 +195,7 @@ struct name docters[2] = {
     save_struct_to_file.c
     由于结构可以存储不同类型的信息,所以它是构建数据库的重要工具
 
-
 联合 union
-
 
 枚举
 enum.c
