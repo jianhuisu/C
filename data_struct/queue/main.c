@@ -38,7 +38,7 @@ int main(int argc, const char * argv[]) {
 
     printf("insert success,now queue has %d elements \n",cronTask.items);
     FP pfun = show;
-    
+    traversal(pointerForCronTask, pfun);
     printf("after traversal, queue has %d elements \n",cronTask.items);
     
     return 0;
