@@ -40,8 +40,6 @@ c源代码字符映射 调整源代码
       判断指令后的标识符是否未定义
       常用于防止多次包含一个文件
 
-
-    #ifndef NAME
     #ifndef NAME
     #define NAME 20
     #endif

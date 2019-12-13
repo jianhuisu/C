@@ -164,3 +164,24 @@
     指向const 的指针
 
 10  指针与多维数组 （待完善）
+
+如何确定一个数组中可以容纳多少个元素?
+
+    int waitToSort[10] = {99,12,88,4,66,3,666,34,55,100};
+    printf(" %d \n", sizeof(waitToSort) / sizeof(waitToSort[0]));
+
+
+!!! 数组名 并不完全等同于 指针
+
+    int waitToSort[10] = {99,12,88,4,66,3,666,34,55,100};
+    printf(" %d \n", sizeof(waitToSort) / sizeof(waitToSort[0])); // 10
+    var_dump(waitToSort); // value is 2
+
+...
+
+    void var_dump(int arr[]){
+        int elementsCount = sizeof(arr) / sizeof(arr[0]);
+        printf(" %d \n ",elementsCount);
+    }
+
+sizeof 是一个操作符 而不是一个函数
