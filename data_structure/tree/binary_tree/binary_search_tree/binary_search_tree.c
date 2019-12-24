@@ -5,7 +5,8 @@
 #include "binary_search_tree.h"
 #include <stdio.h>
 
-initBSTree(void){
+void initBSTree(void)
+{
     struct BSTree * bstree;
     printf("helloc \n");
 }

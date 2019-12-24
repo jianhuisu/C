@@ -3,37 +3,41 @@ struct
 eg.
     struct BOOK{
         char name[50];
-            int age;
+        int age;
     }bk;
 
 BOOK ： 数据结构模板
 bk ：   数据结构类型简写
 
+注意
+    结构模板声明末尾需要添加分号表示结束
+    函数原型声明末尾需要添加分号表示结束
+
 易错点解析
 
--- 这种 declare 方式可以编译通过
+    -- 这种 declare 方式可以编译通过
 
-struct Node{
-    char name[50];
-    int age;
-}
+    struct Node{
+        char name[50];
+        int age;
+    };
 
-struct List{
-    char cla[];
-    struct Node dn;
-}
+    struct List{
+        char cla[];
+        struct Node dn;
+    };
 
 -- 这种 declare 无法通过编译 ,提示 error: unknown type name ‘dNode’
 
-typedef struct Node{
-    char name[50];
-    int age;
-}dNode;
+    typedef struct Node{
+        char name[50];
+        int age;
+    }dNode;
 
-struct List{
-    char cla[];
-    dNode dn;
-}
+    struct List{
+        char cla[];
+        dNode dn;
+    };
 
 -----------------------------------------------------------
 

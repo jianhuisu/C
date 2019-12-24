@@ -20,8 +20,8 @@ typedef struct Node{
 
 struct BSTree{
     dNode * root;
-}
+};
 
-initBSTree();
+void initBSTree(void);
 
 #endif //C_BINARY_SEARCH_TREE_H

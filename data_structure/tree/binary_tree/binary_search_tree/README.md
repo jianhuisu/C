@@ -7,7 +7,6 @@
 
     在一个长度为N的集合中查找指定值i
 
-
     function seqSearch ($setLength,$searchValue){
 
         for($i = 1;$i<= $setLength;$i++){
