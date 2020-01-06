@@ -149,8 +149,8 @@
     按址传递操作会改变原始数据，为了保护原始数据 我们使用 const 关键字 修饰 数组为只读属性 ，通知编译器将 数组当做
     常量处理
 
-     char * argv[] 代表这是一个 指向 char 类型数组的指针
-     char * argv  代表这是一个指向char 字符的指针
+ !!!!! char * argv[] 代表这是一个 指向 char 类型数组的指针
+ !!    char * argv  代表这是一个指向char 字符的指针
 
      void main(int argc,char * argv[])  正确用法
      void main(int argc,char ** argv)  正确用法
