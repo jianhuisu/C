@@ -65,7 +65,7 @@ void arr_dump(int arr[],int len){
 
 /*
 
-    下面为精简写法
+    下面为教材简化法
     #include <stdio.h>
 
     #define LEN 5
