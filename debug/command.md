@@ -1,7 +1,7 @@
     
     
     backtrace（或bt）	查看各级函数调用及参数
-    finish	            连续运行到当前函数返回为止，然后停下来等待命令
+    finish	            连续运行到当前函数返回为止，然后停下来等待命令 // 相当于 return 到函数调用处
     frame（或f）         根据帧编号	选择栈帧，然后可以查看该帧上的局部变量 , 越新调用的帧 帧号越小
     info（或i） locals	查看当前栈帧局部变量的值
     list（或l）	        列出源代码，接着上次的位置往下列，每次列10行
@@ -29,7 +29,7 @@
     
 这部分超有用
 
-    watch  观察点                   设置观察点  // (gdb) watch input[5]
+    watch  观察点                   设置观察点  // (gdb) watch input[5]  ,设置了观察点之后 可以使用 c 运行到下一个观察点
     info（或i） watchpoints	       查看当前设置了哪些观察点
     x	                           从某个位置开始打印存储单元的内容，全部当成字节来看，而不区分哪个字节属于哪个变量
     
@@ -37,3 +37,28 @@
     0xbfb8f0a7:	0x31	0x32	0x33	0x34	0x35	0x00	0x00
     
     x命令打印指定存储单元的内容。7b是打印格式，b表示每个字节一组，7表示打印7组
+    
+    
+    
+eg.
+
+    gdb -Wall -g break.c -o main
+    gdb main
+    ...
+    list 
+    start 
+    n
+    n
+    watch input[5]
+    info watchpoints
+    c
+    ...
+    c
+    finish
+    ...
+    q
+    
+       
+    
+    
+    
