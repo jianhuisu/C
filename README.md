@@ -9,9 +9,9 @@ C程序的编译流程
     load               装载
     link               链接
 
-    compiler       编译器
-    assembler      汇编器
-    linker         链接器
+    compiler       编译器     gcc 、llvm ...
+    assembler      汇编器     as
+    linker         链接器     ld
     loader         装载器
 
     c源码处理阶段
