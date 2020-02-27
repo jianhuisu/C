@@ -74,7 +74,7 @@ Redis Cluster采用无中心节点方式实现，客户端直接与redis集群�
 
 - 访问量较大的热点数据
 - 生成过程耗时长 比如一些CRM系统中的报表数据,一些业务数据经过复杂分析计算的结果集
-- session(hash table) ,完美利用hash算法带来的便利性
+- 会话缓存(hash table) ,完美利用hash算法带来的便利性
 
 缓存穿透/缓存雪崩解决思路
 
@@ -111,6 +111,9 @@ change the user’s score composition.
 
 https://developpaper.com/tips-for-using-redis-to-rank/
 
-### 好友关系
+### 分布式锁
+
+不是原子性操作意味着当一个客户端执行完getKey方法并在执行deleteKey方法之前，也就是在这2个方法执行之间，其他客户端是可以执行其他命令的。
+由于Lua脚本的原子性，在Redis执行该脚本的过程中，其他客户端的命令都需要等待该Lua脚本执行完才能执行
     
     
