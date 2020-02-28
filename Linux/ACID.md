@@ -19,7 +19,6 @@
 单机器
 多机器(分布式)
 
-
 多线程并发
     多个线程同时执行一个任务
 
@@ -27,23 +26,12 @@
     对于临界资源的访问 保证以串行的方式访问/使用,同一个资源同一时刻不允许存在两个使用者
     即使高速公路有四车道允许车辆并行,但是到了只有一个服务窗口的高速出口,还是得一辆接一辆的依次按序通过.
 
+systemctl strat docker 的启动脚本存储在哪里  https://blog.csdn.net/fu_wayne/article/details/38018825
 
-todo systemctl strat docker 的启动脚本存储在哪里
-todo 进程如果以daemon的方式运行
-
+UNIX环境高级编程 APUE Advanced Programming in the UNIX Environment
+todo 李治军操作系统实验
+todo 进程同步的问题 https://www.jianshu.com/p/9e5a1398b293?utm_campaign=maleskine
 todo 进程切换对原子性的影响
 todo 网络延迟对原子性的影响
 todo 中断对原子性的影响
 todo php进程如何保证操作原子性
-
-
-V1 
-
-不是原子性操作意味着当一个客户端执行完getKey方法并在执行deleteKey方法之前，也就是在这2个方法执行之间，其他客户端是可以执行其他命令的。
-由于Lua脚本的原子性，在Redis执行该脚本的过程中，其他客户端的命令都需要等待该Lua脚本执行完才能执行
-
-为什么使用lua可以保证原子性
-    
-    自己的锁只有自己可以释放
-    
-// V2  self lock , system unlock

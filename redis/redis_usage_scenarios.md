@@ -207,6 +207,8 @@ _using the SET command to acquire the lock, and a simple Lua script to release t
 _That said, SETNX can be used, and was historically used, as a locking primitive._
  
  ... ...  
+ 
+思路有点类似自己的锁只有自己可以释放的赶脚
   
 #### redis配合Lua保证操作的原子性
 
