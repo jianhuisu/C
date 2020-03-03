@@ -7,6 +7,7 @@
 #include <pthread.h>
 
 void * safe_print(void * pt);
+
 int sharedi = 0;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
