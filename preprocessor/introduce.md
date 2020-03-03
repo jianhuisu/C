@@ -81,3 +81,8 @@ qsort() 是C对快速排序法的实现
 
 泛型编程
 
+### 多次引用同一个头文件会发生什么
+
+假如a.h中有 int a=10; t1.cpp和t2.cpp同时include "a.h"则编译不成功，因为a重复定义；
+如果 a.h中是 static int a=10;则可以，因为t1和t2中的a只是名字相同，地址空间不同；
+如果a.h中是 extern int a; 并且在a.cpp中 int a=10; 则t1和t2中的a指向同一个地址空间。
