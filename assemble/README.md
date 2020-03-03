@@ -1,3 +1,12 @@
+## 指令格式
+
+指令码 源操作数SRC,目的操作数DST ;注释
+
+    movl	$1, -4(%rbp) # move 
+    
+
+
+
 汇编文件 hello.s
 
 .section .data

@@ -1,12 +1,12 @@
 //
 // Created by guangsujiqiang on 2/28/20.
-// [guangsujiqiang@su-ct7 sale_tickets]$>gcc -o sale -lpthread error_sale.c && ./sale
+// [guangsujiqiang@su-ct7 sale_tickets]$>gcc -o sale -lpthread common_sale.c && ./sale
 //
 /*
-[guangsujiqiang@su-ct7 sale_tickets]$>gcc -o sale -lpthread error_sale.c && ./sale
+[guangsujiqiang@su-ct7 sale_tickets]$>gcc -o sale -lpthread common_sale.c && ./sale
 init tickets number：1000000
 expect values is 910000 ,final surplus tickets number ： 1010000
-[guangsujiqiang@su-ct7 sale_tickets]$>gcc -o sale -lpthread error_sale.c && ./sale
+[guangsujiqiang@su-ct7 sale_tickets]$>gcc -o sale -lpthread common_sale.c && ./sale
 init tickets number：1000000
 expect values is 910000 ,final surplus tickets number ： 1010000
 
@@ -37,7 +37,6 @@ void * back()
         temp = temp + 1;
         pthread_yield();
         ticketCount = temp;
-
     }
 }
 
@@ -61,18 +60,11 @@ int main(int argc,char *argv[]){
     int tmp =  ticketCount;
     printf("init tickets number：%d \n",ticketCount);
 
-    // ------------------------------
-    //Sem = sem_open("sem", O_CREAT, 0666, 1);
-
     c_ret_1 = pthread_create(&p1,NULL,sell,"sell tickets");
     c_ret_2 = pthread_create(&p2,NULL,back,"back tickets");
 
     pthread_join(p1,NULL);
     pthread_join(p2,NULL);
-
-    //sem_close(Sem);
-    //sem_unlink("sem");
-    // ------------------------------
 
     printf("expect values is %d ,final surplus tickets number ： %d \n",tmp - cycle_sell + cycle_back,ticketCount);
     return 0;
