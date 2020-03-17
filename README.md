@@ -4,11 +4,14 @@
 
 ### 1  precompiled
 
+宏定义是预处理指令集中的一个子集 
+
  - 宏展开
  - 删除注释
  - 文本替换
     
     gcc -E main.c -o main.i
+    或者 cpp main.c   // cpp - The C Preprocessor
 
 ### 2   编译
 

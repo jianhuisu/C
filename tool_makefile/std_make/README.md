@@ -5,7 +5,6 @@
  - gcc -M main.c  输出以main.c源文件的依赖,`包括` 系统头文件的依赖关系 例如 stdio.h的依赖关系
  - gcc -MM main.c 输出以main.c源文件的依赖,`不包括`对操作系统的依赖项
  
-
 ### GNU官方建议Makefile写法
 
     all: main
@@ -22,7 +21,7 @@
         sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
         rm -f $@.$$$$
         
-注意，虽然在Makefile中这个命令写了四行，但其实是一条命令，make只创建一个Shell进程执行这条命令，这条命令分为5个子命令，用;号隔开，并且为了美观，用续行符\拆成四行来写。执行步骤为：
+注意，虽然在Makefile中这个命令写了四行，但其实是一条命令，make只创建一个Shell进程执行这条命令，**这条命令分为5个子命令，用;号隔开**，并且为了美观，用续行符\拆成四行来写。执行步骤为：
 
  - set -e命令设置当前Shell进程为这样的状态：如果它执行的任何一条命令的退出状态非零则立刻终止，不再执行后续命令。
  - 把原来的maze.d删掉。
@@ -74,3 +73,84 @@
 
 -n选项只打印要执行的命令，而不会真的执行命令，这个选项有助于我们检查Makefile写得是否正确，由于Makefile不是顺序执行的，
 用这个选项可以先看看命令的执行顺序，确认无误了再真正执行命令。
+
+
+### 应该把哪些内容放置在头文件中 哪些内容放置在源文件中
+
+我看了一下redis的源码,例如 src/cluster.h src/cluster.c
+
+其中 cluster.h中主要包括以下内容
+
+    #ifndef __CLUSTER_H
+    #define __CLUSTER_H
+    
+    /*-----------------------------------------------------------------------------
+    * Redis cluster data structures, defines, exported API.
+    *----------------------------------------------------------------------------*/
+    
+    #define CLUSTER_SLOTS 16384
+    ...
+    #define CLUSTER_REDIR_DOWN_UNBOUND 6  /* -CLUSTERDOWN, unbound slot. */
+    
+    struct clusterNode;
+    
+    /* clusterLink encapsulates everything needed to talk with a remote node. */
+    typedef struct clusterLink {
+        mstime_t ctime;             /* Link creation time */
+        connection *conn;           /* Connection to remote node */
+        sds sndbuf;                 /* Packet send buffer */
+        sds rcvbuf;                 /* Packet reception buffer */
+        struct clusterNode *node;   /* Node related to this link if any, or NULL */
+    } clusterLink;
+    
+    typedef struct clusterNode {
+        ...
+        int port;                   /* Latest known clients port of this node */
+        int cport;                  /* Latest known cluster port of this node. */
+        clusterLink *link;          /* TCP/IP link with this node */
+        list *fail_reports;         /* List of nodes signaling this as failing */
+    } clusterNode;
+    
+    union clusterMsgData {
+        /* PING, MEET and PONG */
+        struct {
+        /* Array of N clusterMsgDataGossip structures */
+        clusterMsgDataGossip gossip[1];
+    } ping;
+    
+    #define CLUSTERMSG_MIN_LEN (sizeof(clusterMsg)-sizeof(union clusterMsgData))
+    
+    clusterNode *getNodeByQuery(client *c, struct redisCommand *cmd, robj **argv, int argc, int *hashslot, int *ask);
+    int clusterRedirectBlockedClientIfNeeded(client *c);
+    void clusterRedirectClient(client *c, clusterNode *n, int hashslot, int error_code);
+    
+    #endif /* __CLUSTER_H */
+ 
+而在源码文件cluster.c中
+
+    #include "server.h"
+    #include "cluster.h"
+    #include "endianconv.h"
+    #include <sys/types.h>
+    #include <sys/socket.h>
+    #include <arpa/inet.h>
+    #include <fcntl.h>
+    #include <unistd.h>
+    #include <sys/stat.h>
+    #include <sys/file.h>
+    #include <math.h>
+    函数定义...
+
+总结来说 头文件中主要包括
+
+ - 宏
+ - 结构/变量的声明 或 定义
+ - 函数原型声明
+ - 少量的include语句
+ 
+ 源码文件中主要包括
+ 
+ - 大量的include语句
+ - 函数原型的定义
+ - 业务逻辑的实现
+ 
