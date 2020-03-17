@@ -222,7 +222,7 @@ inline关键字告诉编译器，这个函数的调用要尽可能快，可以�
 反汇编结果中可以观察到，并没有call指令调用MAX函数，MAX函数的指令是内联在max函数中的，
 由于源代码和指令的次序无法对应，max和MAX函数的源代码也交错在一起显示。
 
-todo 继续理解吧 现在注意力无法集中 效率有点低 做点别的
+todo 继续理解吧 现在注意力无法集中 效率有点低 做点别的 https://docs.huihoo.com/c/linux-c-programming/ch21s02.html
 
 
 
