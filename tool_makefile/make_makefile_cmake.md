@@ -23,14 +23,21 @@ Cmake工具的功能就是用来生成makefile文件，以便make工具进行调
 Cmake工具根据CMakeLists.txt（组态档）文件生成makefile文件；而CMakefile文件是需要程序员自己编写的，或者借助IDE生成；
 类似CMake的工具有很多，比如autotools、Qt环境下的qmake等。
 
+cmake的所有语句都写在一个CMakeLists.txt的文件中，CMakeLists.txt文件确定后，直接使用cmake命令进行运行，
+但是这个命令要指向CMakeLists.txt所在的目录，**cmake之后就会产生我们想要的makefile文件**。
+
 ### CLion提示 Cmake project is not loaded
     
 新建一个project,不要打开已有的project,新建的project系统会自动为你新建CMakeLists.txt
 得到了这句话，于是就新建了project，将之前的代码粘贴进来，果然Clion自动生成了CMakeLists.txt，
 之前一直不亮的小甲虫也亮了起来，点击绿色三角，开始编译，成功后自动开始运行
 
-Clion调试redis https://sunznx.com/redis/redis-source-debug-with-clion.html
+
 
 ### 参考资料
 
 原文链接：https://blog.csdn.net/Aiyanghong/article/details/86501720
+
+https://www.jianshu.com/p/cb4f8136a265
+
+Clion调试redis https://sunznx.com/redis/redis-source-debug-with-clion.html
