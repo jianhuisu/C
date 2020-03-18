@@ -118,13 +118,3 @@ Makefile变量像C的宏定义一样，代表一串字符，在取值的地方�
 
     [guangsujiqiang@su-ct7 tool_makefile]$>which cc | xargs ls -l 
     lrwxrwxrwx. 1 root root 3 Oct 17 01:45 /usr/bin/cc -> gcc
-
-### 多次引用同一个头文件会发生什么
-
-    #include <stdio.h>   // 尖括号在标准目录中寻找
-    #include "php.h"     // 双引号在自定义目录中寻找
-
-todo 这里带完善
-假如a.h中有 int a=10; t1.cpp和t2.cpp同时include "a.h"则编译不成功，因为a重复定义；
-如果 a.h中是 static int a=10;则可以，因为t1和t2中的a只是名字相同，地址空间不同；
-如果a.h中是 extern int a; 并且在a.cpp中 int a=10; 则t1和t2中的a指向同一个地址空间。
