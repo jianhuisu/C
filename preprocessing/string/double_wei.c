@@ -3,7 +3,7 @@
 //
 
 #define CONCAT(a, b) a##b
-// !!!! 注意 CONCAT("ddd",ccccc) 中传参 使用了错误的方式 实参只能是 不被双引号包裹的字符串
+// !!!! 注意 变量宏定义 CONCAT("ddd",ccccc) 中传参 使用了错误的方式 实参只能是 不被双引号包裹的字符串
 CONCAT(ddd,cccc)
 
 /*
