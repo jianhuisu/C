@@ -26,7 +26,7 @@ int main(void)
         close(fd[0]);
         write(fd[1], "hello world\n", 12);
         wait(NULL);
-        while(1); // 这是为了便于观察进程打开文件描述符 未包含任何阻塞操作的话 这个死循环会占满CPU
+        while(1); // 这是为了便于观察进程打开文件描述符 如果未包含任何阻塞操作的话 这个死循环会占满CPU
     } else {       /* child */
         printf(" %d \n ",pid);
         close(fd[1]);
