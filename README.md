@@ -1,5 +1,7 @@
 # C
 
+todo 处理项目中的todo事项
+
 ## C程序的编译流程
 
 ### 1  precompiled
