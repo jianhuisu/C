@@ -1,6 +1,7 @@
 ## 静态库
 
-有时候需要把一组代码编译成一个库，这个库在很多项目中都要用到，例如libc就是这样一个库，我们在不同的程序中都会用到libc中的库函数
+有时候需要把一组代码编译成一个库，这个库在很多项目中都要用到，例如libc就是这样一个库，我们在不同的程序中都会用到libc中的库函数.
+其实一个静态库可以简单看成是一组目标文件（.o/.obj文件）的集合.
 
 如何制作一个静态库
 
@@ -15,8 +16,9 @@
     drwxrwxr-x 2 guangsujiqiang guangsujiqiang   81 Mar 19 16:39 stack
     -rw-rw-r-- 1 guangsujiqiang guangsujiqiang 1000 Mar 19 17:01 stack.o
 
-`gcc -c stack/stack.c stack/push.c stack/pop.c stack/is_empty.c` 虽然没有使用`-o` 显式的指定输出目标文件名,则编译器默认为每一个源文件生成`Stem.o`格式的目标文件
-比如上文结果中的 `stack.o` `push.o` `is_empty.o` `pop.o`.
+`gcc -c stack/stack.c stack/push.c stack/pop.c stack/is_empty.c` 
+虽然没有使用`-o` 显式的指定输出目标文件名,则编译器默认为每一个源文件生成`Stem.o`格式的目标文件.比如上文结果中的 `stack.o` `push.o` `is_empty.o` `pop.o`.
+(选项`-c`用来告诉编译器编译源代码但不要执行链接，输出结果为对象文件。文件默认名与源码文件名相同，只是将其后缀变为 .o.)
 
 #### 生成静态库文件
 
@@ -88,6 +90,9 @@
 而在链接静态库时，链接器会把静态库中的目标文件取出来和可执行文件真正链接在一起。通过反汇编看上一步生成的可执行文件main：main.c只调用了push这一个函数，
 所以链接生成的可执行文件中也只有push而没有pop和is_empty。
 这是使用静态库的一个好处，链接器可以从静态库中只取出需要的部分来做链接。
+(这里纠正了我以前的一个错误看法 我们写的每一个函数实质上就为1-N个汇编指令的集合,
+每一个C文件中指令都尽量减少互相的依赖,这样我们使用的时候,就可以抽取最关键一段指令,而不是整个静态库中的所有指令,我以前一直以为链接合并静态库中的所有内容呢,
+那链接了一个1G静态库文件后,可执行文件不得大的头秃... `file_size_静态库 + file_size_源文件 <= 物理文件大小之和` )
                                                                 
     $ gcc main.c stack.o push.o pop.o is_empty.o -Istack -o main
     
@@ -96,7 +101,12 @@
 ### 动态库与静态库的区别
 
 1 当源码文件与静态库编译链接时,链接器可以从静态库中只取出需要的部分来做链接。而不是全部链接
+l 静态库对函数库的链接是放在编译时期完成的。
+l 程序在运行时与函数库再无瓜葛，移植方便。(一些游戏里都是采用这种方式)
+l 浪费空间和资源，因为所有相关的目标文件与牵涉到的函数库被链接合成一个可执行文件。
 
 ### 原文地址
     
 https://docs.huihoo.com/c/linux-c-programming/ch20s03.html
+
+todo https://www.sulianlian.com/Linux/2019-08-01-Linux_ffmpeg%E5%AE%89%E8%A3%85%E6%B6%89%E5%8F%8A%E5%88%B0%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9.html
