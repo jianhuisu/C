@@ -1,0 +1,27 @@
+[guangsujiqiang@su-ct7 static_library]$>objdump -dS ../share_library/pop.o
+
+../share_library/pop.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <pop>:
+/* pop.c */
+extern char stack[512];
+extern int top;
+
+char pop(void)
+{
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+	return stack[top--];
+   4:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # b <pop+0xb>
+   b:	8b 00                	mov    (%rax),%eax
+   d:	8d 48 ff             	lea    -0x1(%rax),%ecx
+  10:	48 8b 15 00 00 00 00 	mov    0x0(%rip),%rdx        # 17 <pop+0x17>
+  17:	89 0a                	mov    %ecx,(%rdx)
+  19:	48 8b 15 00 00 00 00 	mov    0x0(%rip),%rdx        # 20 <pop+0x20>
+  20:	48 98                	cltq
+  22:	0f b6 04 02          	movzbl (%rdx,%rax,1),%eax
+  26:	5d                   	pop    %rbp
+  27:	c3                   	retq
