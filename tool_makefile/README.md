@@ -7,7 +7,7 @@ make命令会自动读取当前目录下的Makefile文件，完成相应的编�
         command2
         ...
 
- - target: / target : 均可
+ - target: / target : (target与:号之间有无空格都可以)
         
 执行make命令时，是按照GNUmakefile、makefile、Makefile的顺序找到第一个存在的文件并执行它，不过还是建议使用Makefile做文件名
         
@@ -85,7 +85,7 @@ e.g.
     
 ### 要点
 
-##### 函数声明与函数定义不要写在同一个文件
+##### 函数声明与函数定义不要写在同一个文件 函数声明在头文件中 函数定义在.c文件中
 ##### 每条命令必须以一个Tab开头
 
 命令列表中的每条命令必须以一个Tab开头，注意不能是空格，对于Makefile中的每个以Tab开头的命令，make会创建一个Shell进程去执行它

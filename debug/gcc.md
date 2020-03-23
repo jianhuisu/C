@@ -24,3 +24,22 @@ gcc -g -lc -Wall main.c -o main
     编译器会首先找有没有共享库libstack.so，如果有就链接它，如果没有就找有没有静态库libstack.a，如果有就链接它。
     所以编译器是优先考虑共享库的，如果希望编译器只链接静态库，可以指定`-static`选项  
  - -I. `-I`选项指明编译器去哪里找头文件
+ 
+#### 制作动态库
+
+生成与众不同的目标文件
+
+    $ gcc -c -fPIC stack/stack.c stack/push.c stack/pop.c stack/is_empty.c
+    
+制作库文件
+    
+    $ gcc -shared -o libstack.so stack.o pop.o push.o is_empty.o
+    // gcc -shared -Wl,-soname,libstack.so.1 -o libstack.so.1.0 stack.o push.o pop.o is_empty.o
+    
+使用库文件
+
+    添加库文件所在目录到 /etc/ld.so.conf 文件中
+    ldconfig 更新缓存
+    gcc main.c -L. -lstack -Istack -o main
+    // 这个时候 L. 就不那么好用了 ...
+        
