@@ -82,7 +82,7 @@ not need modify
 #### uninstall 
 
     yum remove mysql-community-server
-    
+    d
 find use cmd like `rpm -qa | grep mysql` and use `yum remove name` to remove , until all remove (`rpm -qa | grep -i mysql` => `rpm -e name`) 
 
 delete data files 
