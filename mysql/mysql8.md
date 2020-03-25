@@ -28,7 +28,7 @@ change root password , actually `'root'@'localhost'` and `'root'@'%'` is two use
  
     mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'Debugger123@xuwei';
     Query OK, 0 rows affected (0.01 sec)
-    // or : set password for 'root'@'localhost'=password('TestBicon@123');     
+    // or : set password for 'root'@'localhost'=password('TestBicon@123');     but not recommand
 
 grant root can login from every where 
 
