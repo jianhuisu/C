@@ -270,7 +270,16 @@ typedef 并没有创建新的类型 只不过是为现有类型创建了简写
     (*pf)(mis)  // 语法 2
 
 
+首先定义一个结构体类型，然后定义这种类型的变量和指针：
 
+    struct unit {
+        char c;
+        int num;
+    };
+    struct unit u;
+    struct unit *p = &u;
+    
+要通过指针p访问结构体成员可以写成(*p).c和(*p).num，为了书写方便，C语言提供了->运算符，也可以写成p->c和p->num。
 
 
 

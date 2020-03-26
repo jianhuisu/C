@@ -1,6 +1,136 @@
 ## pointer 
 
-###  
+
+### 野指针
+
+    // error:
+	int main(void)
+	{	
+		int *p;
+		...
+		*p = 0;
+		...
+	}
+
+堆栈上的初始值是不确定的,`*ip`对应内存单元可能存储任何值(声明指针并不像声明int一样,会自动初始化所在的内存单元),
+如果我们紧接着对未初始化的指针进行引用赋值操作`*p=0`,谁知道这会修改哪一块的内存数据,所以,为了避免出现野指针,在定义指针变量时就应该给它明确的初始值,或者时NULL
+
+	// right:
+	#include <stddef.h>
+
+	int main()
+	{
+		int a = 1;
+		int *p = &a;
+		
+		// 或者
+		int *pc = NULL
+		*pc = 1;
+	}
+
+### 指针的计算问题
+
+	
+
+	#include <stdio.h>
+
+	int main(int argc ,char **argv)
+	{
+	    int a[10] ={1,2,3,4,5,6,7,8,9};
+	    int i = 0;
+	
+	    for(i=0;i<10;i++){
+	        printf("%4d , address : %p \n ",a[i],&a[i]);
+	    }
+	
+	    int *p = a;
+	
+	    printf("%p , address : %p \n ",a,&a[0]);
+	    printf("%p , address : %p \n ",p++,&a[0]);
+	    printf("%p , address : %p \n ",p,&a[0]);
+	
+	    printf("%d \n",sizeof(int));
+	
+	    return 0;
+	}
+
+
+print
+
+	/home/guangsu/CLionProjects/Test/cmake-build-debug/Test
+	    1 , address : 0x7fff67e1d720 
+	    2 , address : 0x7fff67e1d724 
+	    3 , address : 0x7fff67e1d728 
+	    4 , address : 0x7fff67e1d72c 
+	    5 , address : 0x7fff67e1d730 
+	    6 , address : 0x7fff67e1d734 
+	    7 , address : 0x7fff67e1d738 
+	    8 , address : 0x7fff67e1d73c 
+	    9 , address : 0x7fff67e1d740 
+	    0 , address : 0x7fff67e1d744 
+	 0x7fff67e1d720 , address : 0x7fff67e1d720 
+	 0x7fff67e1d720 , address : 0x7fff67e1d720 
+	 0x7fff67e1d724 , address : 0x7fff67e1d720 
+	 4 
+
+todo 一个int型数据占用4字节,1字节8位,那么`4*8`是32位,数组中每个地址之间应该相差 32/16=2 ,而不是4，这是为什么呢？除非地址的最小单元是指`字节`，而不是`位`
+
+C 如何查看int占用几个字节
+
+	sizeof(int)
+	sizeof(char)
+
+1 个字节（Byte）等于 8 个位（bit）似乎已经是程序员间的常识了，很少有人质疑这一点。但是作为C语言程序员，我们常常要在不同的硬件平台上做底层开发，应该明白：1个字节等于8个位只是惯例而已，C标准并没有定义这一点。有些编译器并不遵守这个惯例
+字节通常简写为“B”，而位通常简写为小写“b”
+
+
+### 通用指针 void * 
+
+ANSI在将C语言标准化时引入了`void *`类型，`void *`指针与其它类型的指针之间可以隐式转换，而不必用类型转换运算符。注意，只能定义`void *`指针，
+而不能定义void型的变量，因为`void *`指针和别的指针一样都占4个字节，而如果定义void型变量（也就是类型暂时不确定的变量），
+编译器不知道该分配几个字节给变量。同样道理，`void *`指针不能直接Dereference，而必须先转换成别的类型的指针再做Dereference(根据指针找到变量称为Dereference)。
+ 
+
+#### const 
+
+    #include <stdio.h>
+    
+    int main(int argc ,char **argv)
+    {
+    
+        int a = 1;
+        int b = 2;
+        
+        // pointer variable p is read-only , so p =&b is error  , *p=3 is right
+        int * const p = &a; 
+        
+        // pointer reference address is read-only , so pointer variable can modify( right: p1 = &b ) ,
+        // but the value pointer reference can not modify( error: *p1=3 )
+        int const *p1 = &a;
+        
+        // p2 variable can not modify , *p2 also can not modify
+        int const * const p2 = &a;   
+        
+        return 0;
+    }
+
+
+即使不用const限定符也能写出功能正确的程序，但良好的编程习惯应该尽可能多地使用const，因为：
+
+ - const 提升代码的可读性
+ - 尽可能多地使用const限定符，把不该变的都声明成只读，这样可以依靠编译器检查程序中的Bug，防止意外改写数据。
+ - const对编译器优化是一个有用的提示，编译器也许会把const变量优化成常量。
+
+
+
+
+
+
+
+
+
+
+
 
 todo 
 
