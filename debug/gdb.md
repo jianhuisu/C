@@ -15,7 +15,7 @@
     step（或s）	        执行下一行语句，如果有函数调用则进入到函数中
     
     
-    break（或b） 行号	          在某一行设置断点
+    break（或b） 行号	              在某一行设置断点
     break 函数名	                  在某个函数开头设置断点
     break ... if ...	          设置条件断点  // break 9 if sum != 0 
     continue（或c）	              从当前位置开始连续运行程序
@@ -88,5 +88,13 @@ eg.
 `set follow-fork-mode child`命令设置gdb在fork之后跟踪子进程（`set follow-fork-mode parent`则是跟踪父进程），
 然后用run命令，看到的现象是父进程一直在运行，在(gdb)提示符下打印消息，而子进程被先前设的断点打断了。       
     
-    
+
+### gdb debug php source code
+
+    ./configure --prefix=/home/sujianhui/php/output/php7.1/ --enable-fpm --enable-debug
+    make && make install
+    gdb /home/sujianhui/php/output/php7.1/bin/php
+    ...
+    break ECHO_SPEC_CV_HANDLER
+    r 1.php
     
