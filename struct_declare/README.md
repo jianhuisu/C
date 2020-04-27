@@ -73,3 +73,60 @@ complex_struct结构体的格式变了，只需要修改复数存储表示层的
 这里的indirection其实就是abstraction的意思。
 ---------------------------------------------------
 
+### 结构体中的数据类型标志(非常重要 而且常用)
+
+我们通过一个复数存储表示抽象层把complex_struct结构体的存储格式和上层的复数运算函数隔开，complex_struct结构体既可以采用直角座标也可以采用极座标存储。
+但有时候需要同时支持两种存储格式，比如先前已经采集了一些数据存在计算机中，有些数据是以极座标存储的，有些数据是以直角座标存储的，
+如果要把这些数据都存到complex_struct结构体中怎么办？
+
+一种办法是规定complex_struct结构体采用直角座标格式，直角座标的数据可以直接存入complex_struct结构体，而极座标的数据先转成直角座标再存，
+但由于浮点数的精度有限，转换总是会损失精度的。
+
+这里介绍另一种办法(非常实用 例如php的zval结构体实现)，complex_struct结构体由一个数据类型标志和两个浮点数组成，
+
+ - 如果数据类型标志为0，那么两个浮点数就表示直角座标.
+ - 如果数据类型标志为1，那么两个浮点数就表示极座标.
+
+这样，直角座标和极座标的数据都可以适配（Adapt）到complex_struct结构体中，**无需转换和损失精度**.
+
+    enum coordinate_type { RECTANGULAR, POLAR };
+    struct complex_struct {
+        enum coordinate_type t;
+        double a, b;
+    };
+
+enum关键字的作用和struct关键字类似，把coordinate_type这个标识符定义为一个Tag，
+struct complex_struct表示一个结构体类型，而enum coordinate_type表示一个枚举（Enumeration）类型。
+枚举类型的成员是常量，它们的值由编译器自动分配，例如定义了上面的枚举类型之后，
+RECTANGULAR就表示常量0，POLAR表示常量1。如果不希望从0开始分配，可以这样定义：
+
+    enum coordinate_type { RECTANGULAR = 1, POLAR };
+
+这样，RECTANGULAR就表示常量1，而POLAR表示常量2。枚举常量也是一种整型，其值在编译时确定，因此也可以出现在常量表达式中，可以用于初始化全局变量或者作为case分支的判断条件。
+
+!!!注意:
+
+虽然`结构体的成员名`和当前域内`变量名`不在同一命名空间中，但`枚举的成员名`却和当前域内`变量名`在同一命名空间中，所以会出现命名冲突。例如这样是不合法的：
+
+    int main(void)
+    {
+        enum coordinate_type { RECTANGULAR = 1, POLAR };
+        int RECTANGULAR;
+        printf("%d %d\n", RECTANGULAR, POLAR);
+        return 0;
+    }
+
+下面的则无冲突(这是因为全局变量 与 局部变量不在一个命名空间中)
+
+    #include <stdio.h>
+
+    enum coordinate_type { RECTANGULAR = 1, POLAR };
+
+    int main(void)
+    {
+        int RECTANGULAR;
+        printf("%d %d\n", RECTANGULAR, POLAR);
+        return 0;
+    }
+
+
