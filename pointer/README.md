@@ -73,16 +73,61 @@ print
 	 0x7fff67e1d724 , address : 0x7fff67e1d720 
 	 4 
 
-todo 一个int型数据占用4字节,1字节8位,那么`4*8`是32位,数组中每个地址之间应该相差 32/16=2 ,而不是4，这是为什么呢？除非地址的最小单元是指`字节`，而不是`位`
+
+eg.2 
+
+    #include <stdio.h>
+    
+    int main(void)
+    {
+        printf("int: %d , char : %d \n",sizeof(int),sizeof(char));
+    
+        int a = 1;
+        int * pi = &a;
+    
+        char  b = 'A';
+        char * pc = &b;
+        
+        // 指针+1 操作 实质为 当前指针地址 + 1 * （指针类型所占字节数）
+        printf("int origin value is %p , char origin value is %p \n",pi,pc);
+        printf("int after+ value is %p , char after+ value is %p \n",++pi,++pc);
+    }
+
+print 
+
+    /home/sujianhui/CLionProjects/C/cmake-build-debug/test
+    int: 4 , char : 1 
+    int origin value is 0x7ffe6d29de5c , char origin value is 0x7ffe6d29de5b 
+    int after+ value is 0x7ffe6d29de60 , char after+ value is 0x7ffe6d29de5c 
+    
+    Process finished with exit code 0
+
+使用 *p 去访问时，编译后的汇编指令寻址时 应该会从指针指向地址开始 ，偏移（指针类型 占用字节大小）N个字节后结束，这一区间内的内存单元 就是变量值所在区域.
 
 C 如何查看int占用几个字节
 
 	sizeof(int)
 	sizeof(char)
 
-1 个字节（Byte）等于 8 个位（bit）似乎已经是程序员间的常识了，很少有人质疑这一点。但是作为C语言程序员，我们常常要在不同的硬件平台上做底层开发，应该明白：1个字节等于8个位只是惯例而已，C标准并没有定义这一点。有些编译器并不遵守这个惯例
-字节通常简写为“B”，而位通常简写为小写“b”
+1 个字节（Byte）等于 8 个位（bit）似乎已经是程序员间的常识了，很少有人质疑这一点。
+但是作为C语言程序员，我们常常要在不同的硬件平台上做底层开发，应该明白：1个字节等于8个位只是惯例而已，C标准并没有定义这一点。有些编译器并不遵守这个惯例.
+**字节通常简写为“B”，而位通常简写为小写“b”**
 
+### 指针的初始化
+
+注意pi和pc虽然是不同类型的指针变量，但它们的内存单元都占4个字节，因为要保存32位的虚拟地址，同理，在64位平台上指针变量都占8个字节。
+
+    int i;
+    int *pi = &i;
+    char c;
+    char *pc = &c;
+
+用一个指针给另一个指针赋值时要注意，两个指针必须是同一类型的。在我们的例子中，pi是int *型的，pc是char *型的，pi = pc;这样赋值就是错误的。但是可以先强制类型转换然后赋值：
+
+    pi = (int *)pc;
+
+现在pi指向的地址和pc一样，但是通过`*pc`只能访问到一个字节，而通过`*pi`可以访问到4个字节，后3个字节已经不属于变量c了,此时进行指针类型转化，
+其实相当于把`*pc`能访问到的一个字节与紧跟其后的3个字节划分为 `*pi`可以访问的区间，这种方式很危险，不推荐甚至应该禁止这种赋值方式.
 
 ### 通用指针 void * 
 
