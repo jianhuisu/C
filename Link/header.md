@@ -107,4 +107,4 @@ stack.c
 
 ### 参考资料 
 
-宋劲杉 https://docs.huihoo.com/c/linux-c-programming/ch20s02.html
+宋劲彬 https://docs.huihoo.com/c/linux-c-programming/ch20s02.html

@@ -1,10 +1,12 @@
 #include <stdio.h>
 
-enum coordinate_type { RECTANGULAR = 1, POLAR };
-
 int main(void)
 {
-    int RECTANGULAR;
-    printf("%d %d\n", RECTANGULAR, POLAR);
+    int a = 1;
+    int * p = &a;
+    int * p2;
+    p2 = p+1;
+    //*p++;
+    printf("p2 : %p , p : %p",p2,p);
     return 0;
 }

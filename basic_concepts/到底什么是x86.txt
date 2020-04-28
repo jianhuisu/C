@@ -49,6 +49,7 @@ CPU还会经常提到的一个名词叫体系结构
 如何查看自己的操作系统位数与CPU信息？
 
     使用 uname 、cat /proc/cpuinfo 、sysctl machdep.cpu 等命令
+
 台式机/centos7
 
     [guangsujiqiang@su-ct7 bp]$>uname -s
@@ -85,5 +86,6 @@ mac pro
 
 
 参考资料
+
     https://www.cnblogs.com/shoshana-kong/p/10606470.html
     天梯图  http://www.mydrivers.com/zhuanti/tianti/cpu/index.html
