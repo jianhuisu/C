@@ -123,29 +123,5 @@ n.
 
  - 笔记内容多为自己的总结,因为还处于学习阶段，所以不能保证其正确性，仅供参考
  - 强推 宋劲杉老师的书 《Linux C编程一站式学习》 https://docs.huihoo.com/c/linux-c-programming/index.html
- - todo 我的终极目标是可以流畅阅读Redis源码
+ - todo 我的终极目标是可以流畅阅读C项目源码
  
-查看可执行文件的大小端
- 
-ELF Header:
-
-    [root@ share_library]$>readelf -a libstack.so.1.0 
-    Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
-    Class:                             ELF64
-    Data:                              2's complement, little endian  // ----------这里呦
-    Version:                           1 (current)
-    OS/ABI:                            UNIX - System V
-    ABI Version:                       0
-    Type:                              DYN (Shared object file)
-    Machine:                           Advanced Micro Devices X86-64
-    Version:                           0x1
-    Entry point address:               0x660
-    Start of program headers:          64 (bytes into file)
-    Start of section headers:          8080 (bytes into file)
-    Flags:                             0x0
-    Size of this header:               64 (bytes)
-    Size of program headers:           56 (bytes)
-    Number of program headers:         7
-    Size of section headers:           64 (bytes)
-    Number of section headers:         33
-    Section header string table index: 30
