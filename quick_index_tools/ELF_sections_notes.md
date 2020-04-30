@@ -4,7 +4,7 @@
 
     .bss：包含程序运行时未初始化的数据（全局变量和静态变量）。当程序运行时，这些数据初始化为0.
     .comment 包含版本控制信息（是否包含程序的注释信息？不包含，注释在预处理时已经被删除了）.
-    .data和.data1，包含初始化的全局变量和静态变量。
+    .data和.data1，包含初始化的全局变量和静态变量。 data段保存程序的数据，是可读可写的，相当于C程序的全局变量。
     .debug，包含了符号调试用的信息，我们要想用gdb等工具调试程序，需要该类型信息.
     .line，SHT_PROGBITS，包含符号调试的行号信息，描述了源程序和机器代码的对应关系。gdb等调试器需要此信息。
     .dynamic，包含了动态链接的信息。
@@ -18,7 +18,7 @@
     .note Note Section, 类型SHT_NOTE，以后单独讲。
     .plt 过程链接表（Procedure Linkage Table）
     .rel
-    .text
+    .text .text段保存代码，是只读和可执行的,
     .relNAME，类型SHT_REL, 包含重定位信息。如果文件有一个可加载的segment包含该section
     .relaname 类型SHT_RELA，和.rel相同。SHT_RELA和SHT_REL的区别，会在讲重定位的时候说明。
     .rodata和.rodata1。 包含只读数据，组成不可写的段。

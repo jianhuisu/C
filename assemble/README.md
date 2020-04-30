@@ -1,56 +1,36 @@
-## 指令格式
+## 汇编语言要点
 
-指令码 源操作数SRC,目的操作数DST ;注释
+### 原理简介
 
-    movl	$1, -4(%rbp) # move 
-    
+在C语言中我们通过变量名访问一个变量，其操作目的实质为读写某个地址的内存单元，编译链接后,助记符都会被替换为内存地址.
+我们通过函数名调用一个函数，其实就是跳转到该函数第一条指令所在的地址，
+所以变量名和函数名都是符号，本质上是代表内存地址的.
 
+ `char a = 3;` 假设助记符`a`代表的虚地址为`0x000000000ffa`，那么这个定义的意思就是：地址序号为`0x000000000ffa`的内存单元中存储的数据为`字符3`
+ `char b = a;` 假设助记符`a`代表的虚地址为`0x000000000ffa`,`b`代表的虚地址为`0x000000000ffb`,这行赋值语句的意思就是:将地址序号为`0x000000000ffa`的内存单元中存储的数据`copy`一份到地址序号为`0x000000000ffb`的内存单元.
 
+### 类型声明
 
-汇编文件 hello.s
+ - `.long`指示声明一组数，每个数占32位，相当于C语言中的数组`.long 3,67,34,222,45,75,54,34,44,33,22,11,66,0`
+ - `.byte`，也是声明一组数，每个数占8位
+ - `.ascii`，例如.ascii "Hello world"，声明11个数，取值为相应字符的ASCII码。注意，和C语言不同，这样声明的字符串末尾是没有'\0'字符的，如果需要以'\0'结尾可以声明为.ascii "Hello world\0"。 
+ 
+### 汇编代码书写要点
 
-.section .data
-.section .text
-.global _start
-    // instruction
-start:
+ 1. 缩进没有严格要求,只要每个指令独占一行即可
+ 1. 指令末尾没有标点符号
+ 1. 必须写注释
 
-汇编，链接
+### 寻址方式
 
-    as hello.s -o hello.o
-    ld hello.o -o hello
+ - 直接寻址       movl %eax, %ebx                内存寻址:把eax寄存器上存储的值A 传送到ebx寄存器
+ - 间接寻址       movl (%eax), %ebx              内存寻址:把eax寄存器的值A看作地址,找到这个地址A上值B,把值B传送到ebx寄存器. 
+ - 变址寻址       movl data_items(,%edi,4), %eax 内存寻址: `data_items`表示数组首元素的地址,是一个`常数`，指令的意思是 从`data_items`开始计算，偏移 `%edi * 4` 个字节处的数据 发送到寄存器`%eax`上
+ - 基址寻址       movl 4(%eax), %ebx             内存寻址:  每个成员占用4个字节,如果其中一个成员为`char`类型,那么剩余三个字节使用`0`进行填充.
+ - 立即数寻址     movl $12, %eax                 非内存寻址：指令中有一个操作数是立即数 `$12`由CPU产生，不需要访问内存
+ - 寄存器寻址     movl $12, %eax                 非内存寻址: 指令中有一个操作数是寄存器,`%eax`.在汇编程序中寄存器用助记符来表示，在机器指令中则要用几个Bit表示寄存器的编号，这几个Bit也可以看作寄存器的地址，但是和内存地址不在一个地址空间.                 
+                         
+备注：
 
-寻址方式
-
-ADDRESS_OR_OFFSET(%BASE_OR_OFFSET,%INDEX,MULTIPLIER)
-它所表示的地址可以这样计算出来：
-FINAL ADDRESS = ADDRESS_OR_OFFSET + BASE_OR_OFFSET + MULTIPLIER * INDEX
-
-ADDRESS_OR_OFFSET和MULTIPLIER必须是常数，
-BASE_OR_OFFSET和INDEX必须是寄存器。
-在有些寻址方式中会省略这4项中的某些项，相当于这些项是0。其中ADDRESS_OR_OFFSET和MULTIPLIER必须是常数，BASE_OR_OFFSET和INDEX必须是寄存器。在有些寻址方式中会省略这4项中的某些项，相当于这些项是0。
-
-    直接寻址（Direct Addressing Mode）。只使用ADDRESS_OR_OFFSET寻址，例如movl ADDRESS, %eax把ADDRESS地址处的32位数传送到eax寄存器。
-
-    变址寻址（Indexed Addressing Mode） 。上一节的movl data_items(,%edi,4), %eax就属于这种寻址方式，用于访问数组元素比较方便。
-
-    间接寻址（Indirect Addressing Mode）。只使用BASE_OR_OFFSET寻址，例如movl (%eax), %ebx，把eax寄存器的值看作地址，把内存中这个地址处的32位数传送到ebx寄存器。注意和movl %eax, %ebx区分开。
-
-    基址寻址（Base Pointer Addressing Mode）。只使用ADDRESS_OR_OFFSET和BASE_OR_OFFSET寻址，例如movl 4(%eax), %ebx，用于访问结构体成员比较方便，例如一个结构体的基地址保存在eax寄存器中，其中一个成员在结构体内的偏移量是4字节，要把这个成员读上来就可以用这条指令。
-
-    立即数寻址（Immediate Mode）。就是指令中有一个操作数是立即数，例如movl $12, %eax中的$12，这其实跟寻址没什么关系，但也算作一种寻址方式。
-
-    寄存器寻址（Register Addressing Mode）。就是指令中有一个操作数是寄存器，例如movl $12, %eax中的%eax，这跟内存寻址没什么关系，但也算作一种寻址方式。在汇编程序中寄存器用助记符来表示，在机器指令中则要用几个Bit表示寄存器的编号，这几个Bit也可以看作寄存器的地址，但是和内存地址不在一个地址空间。
-
-ELF文件有三种类型
-    可执行文件
-    可重定为目标文件
-    共享库文件
-
-常用工具：
-    readelf 查看目标文件 或者 可执行文件的分段信息
-        readelf -a main.o
-    objdump 反汇编工具   查看目标文件与可执行文件的汇编代码
-        objdump -d main.o
-
-
+ - 变址寻址  常用在数组中元素寻址场景中
+ - 基址寻址  常用在结构体成员寻址场景中 (一般涉及到对齐问题,对齐的地址访问起来效率高)

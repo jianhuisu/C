@@ -12,31 +12,36 @@
 # data_items - contains the item data. A 0 is used
 # to terminate the data
 #
- .section .data
-data_items: 		#These are the data items
- .long 3,67,34,222,45,75,54,34,44,33,22,11,66,0
+# VARIABLES :
+#       %edi  存储遍历数组时，数组当前元素的索引
+#       %eax  存储遍历数组时, 数组当前元素的值
+#       %ebx  存储 遍历过的元素中的最大值
 
- .section .text
- .globl _start
+.section .data
+data_items:
+.long 3,67,34,222,45,75,54,34,44,33,22,11,66,0
+
+.section .text
+.globl _start
 _start:
- movl $0, %edi  		# move 0 into the index register
- movl data_items(,%edi,4), %eax # load the first byte of data
- movl %eax, %ebx 		# since this is the first item, %eax is the biggest
+        movl $0,%edi                     # 存储数组下标索引值
+        movl data_items(,%edi,4),%eax    # 将数组中第 edi 个元素的值 传送到 寄存器%eax中
+        movl %eax,%ebx                   # 将寄存器%eax的值 发送到寄存器 %ebx
 
-start_loop: 		                # start loop
- cmpl $0, %eax  	                # check to see if we've hit the end
- je loop_exit
- incl %edi 		                    # load next value
- movl data_items(,%edi,4), %eax
- cmpl %ebx, %eax 	                # compare values
- jle start_loop 	                # jump to loop beginning if the new one isn't bigger
+start_loop:
+        cmpl $0,%eax                     # 遇到0元素时 终止循环
+        je loop_exit
+        incl %edi
+        movl data_items(,%edi,4),%eax    # data_items 表示数组首元素的地址 是一个常数，
+                                         # 指令的意思是 从data_items开始计算，
+                                         # 偏移 %edi * 4 个字节处的数据 发送到寄存器 %eax 上
 
- movl %eax, %ebx 	                # move the value as the largest
- jmp start_loop 	                # jump to loop beginning
+        cmpl %ebx,%eax                   # if(（%ebx - %eax）> 0 ){ jle start_loop} else {movl %eax,%ebx}
+        jle start_loop
+
+        movl %eax,%ebx
+        jmp start_loop
 
 loop_exit:
- # %ebx is the status code for the _exit system call
- # and it already has the maximum number
- movl $1, %eax  	#1 is the _exit() syscall
- int $0x80
-
+        movl $1,%eax
+        int $0x80
