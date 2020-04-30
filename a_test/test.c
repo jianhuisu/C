@@ -1,21 +1,9 @@
 #include <stdio.h>
 
-int main(int argc, char** argv)
+int main(void)
 {
-    typedef struct {
-        char a;
-        int b;
-        short c;
-        char d;
-    }st;
-
-    st s;
-    s.a = 1;
-    s.b = 2;
-    s.c = 3;
-    s.d = 4;
-
-    printf("%u \n ",sizeof(st));
-    printf("%u %u  %u  %u \n ",s.a,s.b,s.c,s.d);
-
+    enum coordinate_type { RECTANGULAR = 1, POLAR };
+    int RECTANGULAR;
+    printf("%d %d\n", RECTANGULAR, POLAR);
+    return 0;
 }

@@ -1,8 +1,9 @@
 ### ELF文件各Section标注
 
-系统预定义了一些节名（以.开头），这些节有其特定的类型和含义。
+C语言使用命名空间(namespace)标示程序的个部分.
+系统预定义了一些节名（以.开头），这些节有其特定的类型和含义.
 
-    .bss：包含程序运行时未初始化的数据（全局变量和静态变量）。当程序运行时，这些数据初始化为0.
+    .bss：包含程序运行时未初始化的数据（全局变量和静态变量）。当程序运行时，这些数据初始化为0.`.data`和`.bss`在加载时合并到一个Segment中，这个Segment是可读可写的
     .comment 包含版本控制信息（是否包含程序的注释信息？不包含，注释在预处理时已经被删除了）.
     .data和.data1，包含初始化的全局变量和静态变量。 data段保存程序的数据，是可读可写的，相当于C程序的全局变量。
     .debug，包含了符号调试用的信息，我们要想用gdb等工具调试程序，需要该类型信息.
@@ -18,7 +19,7 @@
     .note Note Section, 类型SHT_NOTE，以后单独讲。
     .plt 过程链接表（Procedure Linkage Table）
     .rel
-    .text .text段保存代码，是只读和可执行的,
+    .text .text段保存代码，是只读和可执行的, 程序加载运行时，.rodata段和.text段通常合并到一个Segment中，操作系统将这个Segment的页面只读保护起来，防止意外的改写
     .relNAME，类型SHT_REL, 包含重定位信息。如果文件有一个可加载的segment包含该section
     .relaname 类型SHT_RELA，和.rel相同。SHT_RELA和SHT_REL的区别，会在讲重定位的时候说明。
     .rodata和.rodata1。 包含只读数据，组成不可写的段。

@@ -95,42 +95,13 @@ complex_struct结构体的格式变了，只需要修改复数存储表示层的
         double a, b;
     };
 
-enum关键字的作用和struct关键字类似，把coordinate_type这个标识符定义为一个Tag，
-struct complex_struct表示一个结构体类型，而enum coordinate_type表示一个枚举（Enumeration）类型。
+`enum`关键字的作用和`struct`关键字类似，把`coordinate_type`这个标识符定义为一个`Tag`，
+`struct complex_struct`表示一个结构体类型，而`enum coordinate_type`表示一个枚举（`Enumeration`）类型。
 枚举类型的成员是常量，它们的值由编译器自动分配，例如定义了上面的枚举类型之后，
-RECTANGULAR就表示常量0，POLAR表示常量1。如果不希望从0开始分配，可以这样定义：
+`RECTANGULAR`就表示常量`0`，`POLAR`表示常量`1`。如果不希望从`0`开始分配，可以这样定义：
 
     enum coordinate_type { RECTANGULAR = 1, POLAR };
 
-这样，RECTANGULAR就表示常量1，而POLAR表示常量2。枚举常量也是一种整型，其值在编译时确定，因此也可以出现在常量表达式中，可以用于初始化全局变量或者作为case分支的判断条件。
-
-!!!注意:
-
-虽然`结构体的成员名`和当前域内`变量名`不在同一命名空间中，但`枚举的成员名`却和当前域内`变量名`在同一命名空间中，所以会出现命名冲突。例如这样是不合法的：
-
-    int main(void)
-    {
-        enum coordinate_type { RECTANGULAR = 1, POLAR };
-        int RECTANGULAR;
-        printf("%d %d\n", RECTANGULAR, POLAR);
-        return 0;
-    }
-
-下面的则无冲突(这是因为全局变量 与 局部变量不在一个命名空间中)
-
-    #include <stdio.h>
-
-    enum coordinate_type { RECTANGULAR = 1, POLAR };
-
-    int main(void)
-    {
-        int RECTANGULAR;
-        printf("%d %d\n", RECTANGULAR, POLAR);
-        return 0;
-    }
-
-那么用`#define`定义的常量和枚举常量有什么区别呢？
-
- - define不仅用于定义常量，也可以定义更复杂的语法结构，称为宏（Macro）定义。
- - define定义是在预处理阶段处理的，而枚举是在编译阶段处理的。
+这样，`RECTANGULAR`就表示常量`1`，而`POLAR`表示常量`2`.枚举常量也是一种整型，其值在编译时确定，
+因此也可以出现在常量表达式中，可以用于初始化全局变量或者作为`case`分支的判断条件。
 

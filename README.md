@@ -123,11 +123,10 @@ n.
 
  - 笔记内容多为自己的总结,因为还处于学习阶段，所以不能保证其正确性，仅供参考
  - 强推 宋劲杉老师的书 《Linux C编程一站式学习》 https://docs.huihoo.com/c/linux-c-programming/index.html
- - todo 我的终极目标是可以流畅阅读C项目源码  
- 
- 
- 
- ------------------- CLion 全局搜索功能失效了，修复一下
- todo 存储变量的布局 http://akaedu.github.io/book/ch19s03.html
- todo 寻址方式
- 
+ - todo 我的终极目标是可以流畅阅读C项目源码
+   
+ todo C库函数 进程/IPC 系统调用
+ todo php源码
+ todo 联合
+ todo 浮点数不能比较大小
+ todo 位操作的两种方式
