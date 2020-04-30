@@ -20,7 +20,7 @@
  - 进程切换时需要保存和恢复的一些CPU寄存器.
  - 描述虚拟地址空间的信息.
  - 描述控制终端的信息.
- - 当前工作目录（Current Working Directory）.
+ - 当前工作目录（Current Working Directory）. cwd
  - umask掩码.
  - 文件描述符表，包含很多指向file结构体的指针.
  - 和信号相关的信息.

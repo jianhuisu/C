@@ -2,8 +2,8 @@
 
 int main(void)
 {
-    enum coordinate_type { RECTANGULAR = 1, POLAR };
-    int RECTANGULAR;
-    printf("%d %d\n", RECTANGULAR, POLAR);
+    char name[10]= "1.3333";
+
     return 0;
+
 }

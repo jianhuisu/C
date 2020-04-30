@@ -125,8 +125,11 @@ n.
  - 强推 宋劲杉老师的书 《Linux C编程一站式学习》 https://docs.huihoo.com/c/linux-c-programming/index.html
  - todo 我的终极目标是可以流畅阅读C项目源码
    
- todo C库函数 进程/IPC 系统调用
+ todo C库函数 这个可以累的时候看 靠后一点  许多公司在面试时会要求应聘者写一段复制字符串或字符串子串操作的程序
+ todo IO缓冲区域
+ todo 进程/IPC 系统调用
+ todo 信号
+ todo 多线程 并发
  todo php源码
- todo 联合
- todo 浮点数不能比较大小
  todo 位操作的两种方式
+ 
