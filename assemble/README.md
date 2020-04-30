@@ -1,4 +1,8 @@
 ## 汇编语言要点
+    
+    vim section.s 
+    as section.s -o section.o
+    ld section.o -o sec
 
 ### 原理简介
 
@@ -34,3 +38,44 @@
 
  - 变址寻址  常用在数组中元素寻址场景中
  - 基址寻址  常用在结构体成员寻址场景中 (一般涉及到对齐问题,对齐的地址访问起来效率高)
+ 
+关于基址寻址对齐，这里标注一下,我们写一个结构体，然后反汇编观察一下
+
+    #include <stdio.h>
+    
+    int main(int argc, char** argv)
+    {
+        typedef struct {
+            char a;
+            int b;
+            short c;
+            char d;
+        }st;
+    
+        st s;
+        s.a = 1;
+        s.b = 2;
+        s.c = 3;
+        s.d = 4;
+    
+        printf("%u \n ",sizeof(st));
+        printf("%u %u  %u  %u \n ",s.a,s.b,s.c,s.d);
+    
+    }
+    
+    
+    gcc -g test.c  
+    objdump -dS a.out > 1.txt
+    cat 1.txt
+
+在反汇编结果中找到对应指令,
+
+    printf("%u %u  %u  %u \n ",s.a,s.b,s.c,s.d);
+    400565:	0f b6 45 fa          	movzbl -0x6(%rbp),%eax
+    ...
+    40056c:	0f b7 45 f8          	movzwl -0x8(%rbp),%eax
+    ...
+    400573:	8b 55 f4             	mov    -0xc(%rbp),%edx
+    400576:	0f b6 45 f0          	movzbl -0x10(%rbp),%eax
+
+地址都是`4`的倍数
