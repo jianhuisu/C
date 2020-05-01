@@ -24,3 +24,16 @@ https://docs.huihoo.com/c/linux-c-programming/ch20s02.html
     int push(char);
     int pop(void);
     int is_empty(void);
+    
+    
+    
+#### for
+
+
+    for(i=0;;i++){
+        if(a == NULL){
+            break;
+        }
+    }
+    
+`;;` 表示一直为真，直到依靠`break`跳出循环.
