@@ -1,21 +1,23 @@
+/* readrec.c */
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-int main(int argc, char *argv[])
+struct record {
+    char name[10];
+    int age;
+};
+
+int main(void)
 {
-    char *str1, *token;
-    char *saveptr1;
-    int j;
-    char name[] = "root:x::0:root:/root:/bin/bash:";
-
-    for (j = 1, str1 = name; ; j++, str1 = NULL) {
-        token = strtok_r(str1, ":", &saveptr1);
-        if (token == NULL){
-            break;
-        }
-        printf("%d: %s\n", j, token);
+    struct record array[2];
+    FILE *fp = fopen("recfile", "r");
+    if (fp == NULL) {
+        perror("Open file recfile");
+        exit(1);
     }
-
-    exit(EXIT_SUCCESS);
+    fread(array, sizeof(struct record), 2, fp);
+    printf("Name1: %s\tAge1: %d\n", array[0].name, array[0].age);
+    printf("Name2: %s\tAge2: %d\n", array[1].name, array[1].age);
+    fclose(fp);
+    return 0;
 }

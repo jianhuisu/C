@@ -125,16 +125,23 @@ n.
  - 强推 宋劲杉老师的书 《Linux C编程一站式学习》 https://docs.huihoo.com/c/linux-c-programming/index.html
  - todo 我的终极目标是可以流畅阅读C项目源码
  - 我想在能挣钱的同时 做有意义的事 不再浪费自己的青春
-   
- todo C库函数 这个可以累的时候看 靠后一点  许多公司在面试时会要求应聘者写一段复制字符串或字符串子串操作的程序 ，还差最后一个 strtok_r 没搞定
- todo IO缓冲区域
+ 
+ 线程库
+ 进程库
+ string库
+ 数学计算库
+ io库
+ 
+ todo C语言中如何处理汉字
+ todo 数据库的实现原理  二进制存储？
+ 数值运算、符号处理和I/O操作三类
+ todo 标准IO函数
  todo 进程/IPC 系统调用
  todo 信号
- todo 多线程 并发
+ todo 多线程 并发 线程安全 可重入函数
  todo php源码
  todo 位操作的两种方式
- todo 什么是线程安全 什么是二进制安全
- 
+  
 php如何写出线程安全的类 php高并发编程
 MT-safe Multiple Thread safe
 
