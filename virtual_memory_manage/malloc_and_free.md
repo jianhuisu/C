@@ -64,6 +64,33 @@
 
 `ps aux | grep server_name | xargs top -p`可以监测到内存使用量持续攀升,直到进程崩溃. 
 
+### 其它的内存分配函数
+
+分配内存的函数
+除了`malloc`之外，C标准库还提供了另外两个在`堆空间分配内存`的函数，它们分配的内存同样由`free`释放。
+
+    #include <stdlib.h>
+    
+    void *calloc(size_t nmemb, size_t size);
+    void *realloc(void *ptr, size_t size);
+    返回值：成功返回所分配内存空间的首地址，出错返回NULL
+    
+`calloc`的参数很像`fread/fwrite`的参数，分配`nmemb`个元素的内存空间，每个元素占`size`字节，并且`calloc`负责把这块内存空间用字节0填充，
+    而`malloc`并不负责把分配的内存空间清零.
+
+有时候用`malloc`或`calloc`分配的内存空间使用了一段时间之后需要改变它的大小，一种办法是调用`malloc`分配一块新的内存空间，把原内存空间中的数据拷到新的内存空间，
+然后调用`free`释放原内存空间。使用`realloc`函数简化了这些步骤，把原内存空间的指针`ptr`传给`realloc`，通过参数`size`指定新的大小（字节数），
+`realloc`返回新内存空间的首地址，并释放原内存空间。新内存空间中的数据尽量和原来保持一致，如果`size`比原来小，则前`size`个字节不变，
+后面的数据被截断，如果`size`比原来大，则原来的数据全部保留，后面长出来的一块内存空间未初始化（`realloc`不负责清零）。
+
+注意：参数`ptr`要么是`NULL`，要么必须是先前调用`malloc`、`calloc`或`realloc`返回的指针，不能把任意指针传给`realloc`要求重新分配内存空间.
+
+#include <alloca.h>
+
+void *alloca(size_t size);
+返回值：返回所分配内存空间的首地址，如果size太大导致栈空间耗尽，结果是未定义的
+参数size是请求分配的字节数，alloca函数不是在堆上分配空间，而是在调用者函数的栈帧上分配空间，类似于C99的变长数组，当调用者函数返回时自动释放栈帧，所以不需要free。这个函数不属于C标准库，而是在POSIX标准中定义的。
+
 ### 参考资料
 
 http://akaedu.github.io/book/ch24s01.html#interface.prereq

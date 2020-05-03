@@ -123,25 +123,24 @@ n.
 
  - 笔记内容多为自己的总结,因为还处于学习阶段，所以不能保证其正确性，仅供参考
  - 强推 宋劲杉老师的书 《Linux C编程一站式学习》 https://docs.huihoo.com/c/linux-c-programming/index.html
- - todo 我的终极目标是可以流畅阅读C项目源码
- - 我想在能挣钱的同时 做有意义的事 不再浪费自己的青春
+ - 必须掌握的库 string库 数学计算库 io库 **线程库 进程库**
+ - 我想在能挣钱的同时 做有意义的事 不再浪费自己的青春 
+ - 我的终极目标是可以流畅阅读C项目源码
  
- 线程库
- 进程库
- string库
- 数学计算库
- io库
+#### 学习曲线
  
- todo C语言中如何处理汉字
- todo 数据库的实现原理  二进制存储？
- 数值运算、符号处理和I/O操作三类
- todo 标准IO函数
- todo 进程/IPC 系统调用
- todo 信号
- todo 多线程 并发 线程安全 可重入函数
- todo php源码
- todo 位操作的两种方式
-  
+ todo 了解Linux系统编程部分知识 系统调用  select / poll / epoll        
+ todo 熟练掌握 多进程 多线程 信号 IPC 线程安全 并发 部分 原理知识，了解如何写出线程安全的类 如何处理并发问题
+ todo 熟悉常用数据结构,
+ todo php源码 为简历增彩 找两个项目（直播/图片服务器）   
+ todo 数据库的实现原理 数据库面试刷题
+ todo redis实现原理 面试题刷题
+ todo nginx tcp 部分刷题
+   
+#### 待深入研究问题
+
+多个进程打开操作同一个文件 怎么办？   
+   
 php如何写出线程安全的类 php高并发编程
 MT-safe Multiple Thread safe
 

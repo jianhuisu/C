@@ -71,5 +71,15 @@
  - gcvt()：将浮点型数转换为字符串，取四舍五入。
  - ecvt()：将双精度浮点型值转换为字符串，转换结果中不包含十进制小数点。
  - fcvt()：指定位数为转换精度，其余同ecvt()。
-      
-自行实现转化,根据ASCII
+ 
+这里的转化有很多陷阱,使用之前要查看man page.
+          
+    #include <stdio.h>
+    #include <stdlib.h>
+    
+    int main(void)
+    {
+        int a = atoi(" 45455sdfassdf");
+        printf(" %d \n ",a);
+        return 0;
+    }
