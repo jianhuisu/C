@@ -1,37 +1,51 @@
+#include <sys/types.h>
 #include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <string.h>
-#include <stdlib.h>
 #include <stdio.h>
-
-#define MSG_TRY "try again\n"
-#define MSG_TIMEOUT "timeout\n"
+#include <stdlib.h>
 
 int main(void)
 {
-    char buf[10];
-    int fd, n, i;
-    fd = open("/dev/tty", O_RDONLY|O_NONBLOCK);
-    if(fd<0) {
-        perror("open /dev/tty");
-        exit(1);
+    pid_t pid;
+
+    int childs_num ;
+    FILE * fp;
+
+    if( (fp = fopen("/home/sujianhui/CLionProjects/C/a_test/example.txt","a+")) == NULL){
+        perror("open error");
     }
-    for(i=0; i<5; i++) {
-        n = read(fd, buf, 10);
-        if(n>=0)
-            break;
-        if(errno!=EAGAIN) {
-            perror("read /dev/tty");
+
+    for(childs_num = 0;childs_num<4;childs_num++){
+
+        pid = fork();
+        if (pid < 0) {
+            perror("fork failed");
             exit(1);
         }
-        sleep(1);
-        write(STDOUT_FILENO, MSG_TRY, strlen(MSG_TRY));
+
+        if (pid == 0) {
+
+            int i;
+            size_t j;
+            char a[40];
+            for (i = 3; i > 0; i--) {
+                 j = snprintf(a, 30, "child pid is %d \n", getpid());
+                 fwrite(a,40,1,fp);
+                 printf(" %s \n",a);
+                 sleep((3*i)+1);
+            }
+
+            fclose(fp);
+            exit(1);
+        } else {
+            printf("fork child %d \n",pid);
+        }
+
     }
-    if(i==5)
-        write(STDOUT_FILENO, MSG_TIMEOUT, strlen(MSG_TIMEOUT));
-    else
-        write(STDOUT_FILENO, buf, n);
-    close(fd);
+
+    int count = 0;
+    while(1){
+        printf("%d \n",count++);
+        sleep(5);
+    }
     return 0;
 }

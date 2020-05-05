@@ -129,22 +129,19 @@ n.
  
 #### 学习曲线
  
- todo 了解Linux系统编程部分知识 系统调用  select / poll / epoll        
+ todo 了解Linux系统编程部分知识 系统调用  select / poll / epoll
+ todo 如何实现wait所有子进程的结束    wait and wait pid 
  todo 熟练掌握 多进程 多线程 信号 IPC 线程安全 并发 部分 原理知识，了解如何写出线程安全的类 如何处理并发问题
- todo 熟悉常用数据结构,
+ todo 熟悉常用数据结构, 管道是用环形队列实现的
  todo php源码 为简历增彩 找两个项目（直播/图片服务器）   
  todo 数据库的实现原理 数据库面试刷题
  todo redis实现原理 面试题刷题
  todo nginx tcp 部分刷题
    
 #### 待深入研究问题
-
-多个进程打开操作同一个文件 怎么办？   
    
 php如何写出线程安全的类 php高并发编程
 MT-safe Multiple Thread safe
-
-多进程一般不会出现竞争问题 因为进程之间的资源是隔离的
 
 并发执行:交错执行，多线程访问临界资源时，必须进行同步控制.多线程的临界资源有全局数据，堆区数据，文件描述符
 同步控制方式：
