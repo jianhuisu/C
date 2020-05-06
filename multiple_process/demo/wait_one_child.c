@@ -36,6 +36,7 @@ int main(int argc,char ** argv)
         // wait等待 [第一个终止] 的子进程，而waitpid可以通过pid参数指定等待哪一个子进程
         waitpid(pid,&child_stat_val,0);
 
+        // 虽然child_stat_val 是int型变量 但是所有关键的信息都隐藏在int变量的 bit 上,需要通过宏解析出来
         if (WIFEXITED(child_stat_val)){
             printf("Child exited with code %d \n ", WEXITSTATUS(child_stat_val));
         } else if (WIFSIGNALED(child_stat_val)){
@@ -43,5 +44,8 @@ int main(int argc,char ** argv)
         }
 
     }
+
+    //  all process (child and parent) will call this printf
+    printf("---> %d \n",getpid());
 
 }

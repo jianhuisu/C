@@ -2,16 +2,25 @@
 
 ### 1 什么是 Core Dump
 
-首先解释什么是Core Dump。当一个进程要异常终止时,可以选择把进程的用户空间内存数据全部保存到磁盘上,文件名通常是core,这叫做Core Dump。进程异常终止通常是因为有Bug,比如非法内存访问导致段错误,事后可以用调试器检查core文件以查清错误原因,这叫做Post-mortem Debug。一个进程允许产生多大的core文件取决于进程的Resource Limit（这个信息保存在PCB中）。默认是不允许产生core文件的,因为core文件中可能包含用户密码等敏感信息,不安全。在开发调试阶段可以用ulimit命令改变这个限制,允许产生core文件。
+首先解释什么是Core Dump。当一个进程要异常终止时,可以选择把进程的用户空间内存数据全部保存到磁盘上,文件名通常是core,这叫做Core Dump。
+进程异常终止通常是因为有Bug,比如非法内存访问导致段错误,事后可以用调试器检查core文件以查清错误原因,这叫做`Post-mortem Debug`。
+一个进程允许产生多大的core文件取决于进程的Resource Limit（这个信息保存在PCB中）。**默认是不允许产生core文件的,因为core文件中可能包含用户密码等敏感信息,不安全。
+**在开发调试阶段可以用ulimit命令改变这个限制,允许产生core文件。
 
 ### 2 如何生成core dump文件
 
-在终端中输入命令 ulimit -c ,输出的结果为 0,说明默认是关闭 core dump 的,即当程序异常终止时,也不会生成 core dump 文件。
+在终端中输入命令 ulimit -c ,输出的结果为 0,说明默认是关闭 core dump 的,即当程序异常终止时,也不会生成 `Core dump` 文件。
 可以使用命令开启 core dump 功能,并且不限制 core dump 文件的大小作为生成条件； 
 
     ulimit -c unlimited 
 
 如果需要限制文件的大小,将 unlimited 改成你想生成 core 文件最大的大小,注意单位为 blocks（KB）。
+(意思是 允许生成的Core dump文件的最大大小).
+
+ - ctrl + c 终止进程
+ - ctrl + \ 终止进程并产生`core dump`文件
+ 
+通过终端按键产生信号只能对前台进程生效,对于后台进程,需要调用系统函数`kill`命令发送信号.
 
 #### 永久开启 
 
@@ -29,6 +38,8 @@ way 2：
 #### 手动模拟生成coredump文件
 
     kill -s SIGSEGV $$  // 关闭当前shell进程
+
+默认在`CWD`下产生Coredump文件.
 
 ### 3 coredump文件的存储位置
 
@@ -72,7 +83,6 @@ method 2 :
 
     gdb -c [core file]
     gdb -c coredump文件
-
 
 ### 参考资料
 
