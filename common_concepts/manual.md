@@ -51,3 +51,13 @@ xargs reads items from the standard input, delimited by blanks (which can be pro
     do 
         cat -n $item
     done 
+    
+### shell 内建命令
+
+以前学过的`cd`、`alias`、`umask`、`exit`等命令即是内建命令，凡是用`which`命令查不到程序文件所在位置的命令都是内建命令，
+内建命令没有单独的man手册，要在man手册中查看内建命令，应该
+
+    $ man bash-builtins
+    
+`export`、`shift`、`if`、`eval`、`[`、`for`、`while`等等。内建命令虽然不创建新的进程，但也会有`Exit Status`，通常也用0表示成功非零表示失败，
+虽然内建命令不创建新的进程，但执行结束后也会有一个状态码，也可以用特殊变量$?读出。
