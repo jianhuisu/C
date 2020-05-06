@@ -1,20 +1,20 @@
+//
+// 累加结果小于期望结果 未进行线程间同步
+//
 #include <stdio.h>
 #include <unistd.h>
 #include <pthread.h>
 #define MAX_LOOP 100000
 int counter = 0;
-pthread_mutex_t t_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 void * thd(void)
 {
     int i;
     int tmp;
     for(i=0;i<MAX_LOOP;i++){
-        pthread_mutex_lock(&t_mutex);
         tmp = counter;
         printf("call one system call %d %d \n",(int)pthread_self(),counter);
         counter = tmp + 1;
-        pthread_mutex_unlock(&t_mutex);
     }
 
     return NULL;

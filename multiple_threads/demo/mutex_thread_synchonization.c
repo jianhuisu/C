@@ -1,3 +1,6 @@
+//
+// 使用Mutex实现线程间同步
+//
 #include <stdio.h>
 #include <unistd.h>
 #include <pthread.h>
@@ -10,6 +13,14 @@ void * thd(void)
     int i;
     int tmp;
     for(i=0;i<MAX_LOOP;i++){
+
+        // 一个线程可以调用pthread_mutex_lock获得Mutex，
+        // 如果这时另一个线程已经调用pthread_mutex_lock获得了该Mutex，
+        // 则当前线程需要挂起等待，直到另一个线程调用pthread_mutex_unlock释放Mutex，
+        // 当前线程被唤醒，才能获得该Mutex并继续执行。
+        //
+        //如果一个线程既想获得锁，又不想挂起等待，可以调用pthread_mutex_trylock，
+        // 如果Mutex已经被另一个线程获得，这个函数会失败返回EBUSY，而不会使线程挂起等待。
         pthread_mutex_lock(&t_mutex);
         tmp = counter;
         printf("call one system call %d %d \n",(int)pthread_self(),counter);
