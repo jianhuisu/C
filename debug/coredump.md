@@ -84,6 +84,9 @@ method 2 :
     gdb -c [core file]
     gdb -c coredump文件
 
+产生coredump文件后,直接使用`gdb -c coredumpfile`方式调试,会出现提示`Missing separate debuginfo for the main executable file`,
+这是因为没有找到原始的可执行文件进行符号参照.更化gdb方式即可：`gdb ./test [core file]`
+
 ### 参考资料
 
  - https://blog.csdn.net/follow_blast/article/details/82117390

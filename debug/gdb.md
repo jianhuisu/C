@@ -98,3 +98,21 @@ eg.
     break ECHO_SPEC_CV_HANDLER
     r 1.php
     
+    
+### gdb 附加一个进程到调试模式 
+
+### gdb调试coredump
+
+    gdb ./server.c core.8982
+    ->bt 或者 where  // 查看调用堆栈 找到出错位置    
+    
+ - 在带上调试信息的情况下，我们实际上是可以看到core的地方和代码行的匹配位置。
+ - 在不带调试信息的情况下，使用过滤法( 但往往正常发布环境是不会带上调试信息的，因为调试信息通常会占用比较大的存储空间，一般都会在编译的时候把-g选项去掉。)
+    
+eg.
+
+    -> f 1
+    -> disassemble
+    -> 在汇编代码中找到leave那一行
+    
+https://blog.csdn.net/sunxiaopengsun/article/details/72974548
