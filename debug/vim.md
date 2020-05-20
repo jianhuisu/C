@@ -1,6 +1,11 @@
 ## vim 
 
-##### zhe die
+##### quick page
+
+ - ctrl + f  ==> page up
+ - ctrl + b  ==> page down
+
+##### expand
 
     zc
     zo

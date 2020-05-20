@@ -26,3 +26,10 @@
     
 `set follow-fork-mode child`命令设置gdb在fork之后跟踪子进程（`set follow-fork-mode parent`则是跟踪父进程），
 然后用run命令，看到的现象是父进程一直在运行，在(gdb)提示符下打印消息，而子进程被先前设的断点打断了。
+
+##### Detaching after fork from child process ***
+
+gdb的时候尝试设置一下这个：
+
+    set follow-fork-mode [parent|child]
+    set follow-fork-mode child
