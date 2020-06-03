@@ -1,7 +1,6 @@
 .section .data   数据段 可读可写可执行      存储数据
 .section .text   命令段 可读可执行          存储源代码
 
-
 x86汇编一直存在两种不同的语法，在intel的官方文档中使用intel语法，Windows也使用intel语法，
 而UNIX平台的汇编器一直使用AT&T语法，所以本书使用AT&T语法。
 
