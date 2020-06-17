@@ -28,7 +28,36 @@ IPC主要分为两类.
  - LPC用在多任务操作系统中,LPC不涉及网络控制，因此大大简化了远程调用的流程，也提高了调用效率.使得同时运行的任务能互相会话
  - RPC客户端将调用一个本地方法，而这个本地方法则是负责透明的与远程服务端进行过程间通信。这个本地方法会讲相关参数顺序打包到一个消息中，
    然后把这个消息发送给服务端提供的方法，服务端的方法会从消息中解出序列化发出来的参数，然后执行，最后仍以同样的方式将方法的返回值发送给客户端
+   
+##### swoole IPC 
+   
+在Swoole下使用了 2 种方式 Unix Socket 和 sysvmsg，下面分别介绍：
 
+`Unix Socket`
+
+全名 `UNIX Domain Socket`, 简称 `UDS`, 使用套接字的 `API (socket，bind，listen，connect，read，write，close 等)`，和 `TCP/IP` 不同的是不需要指定 `ip` 和 `port`，
+而是通过一个文件名来表示 (例如 FPM 和 Nginx 之间的 `/tmp/php-fcgi.sock`)，UDS 是 Linux 内核实现的全内存通信，无任何 IO 消耗。
+在 1 进程 write，1 进程 read，每次读写 1024 字节数据的测试中，100 万次通信仅需 1.02 秒，而且功能非常的强大，Swoole 下默认用的就是这种 IPC 方式。
+
+`SOCK_STREAM` 和 `SOCK_DGRAM`
+
+Swoole 下面使用 UDS 通讯有两种类型，SOCK_STREAM 和 SOCK_DGRAM，可以简单的理解为 TCP 和 UDP 的区别，当使用 SOCK_STREAM 类型的时候同样需要考虑 TCP 粘包问题。
+当使用 SOCK_DGRAM 类型的时候不需要考虑粘包问题，每个 send() 的数据都是有边界的，发送多大的数据接收的时候就收到多大的数据，没有传输过程中的丢包、乱序问题，
+send 写入和 recv 读取的顺序是完全一致的。send 返回成功后一定是可以 recv 到。
+在 IPC 传输的数据比较小时非常适合用 `SOCK_DGRAM` 这种方式，由于 IP 包每个最大有 64k 的限制，所以用 SOCK_DGRAM 进行 IPC 时候单次发送数据不能大于 64k，
+同时要注意收包速度太慢操作系统缓冲区满了会丢弃包，因为 UDP 是允许丢包的，可以适当调大缓冲区。
+
+sysvmsg
+
+即 Linux 提供的消息队列，这种 IPC 方式通过一个文件名来作为 key 进行通讯，这种方式非常的不灵活，实际项目使用的并不多，不做过多介绍。
+
+此种 IPC 方式只有两个场景下有用:
+
+ - 防止丢数据，如果整个服务都挂掉，再次启动队列中的消息也在，可以继续消费，但同样有脏数据的问题。
+ - 可以外部投递数据，比如 Swoole 下的 Worker进程通过消息队列给 Task进程投递任务，第三方的进程也可以投递任务到  
+   
+这一节内容来自于 https://wiki.swoole.com/#/learn   
+   
 ### 管道
 
 管道是一种最基本的IPC机制，由pipe函数创建：
@@ -43,7 +72,7 @@ IPC主要分为两类.
 
     man 3 pipe
     
-查看进程打开的fd列表
+查看进程打开的fd列表(或者参考`lsof`)
     
     [guangsujiqiang@su-ct7 bp]$>ll /proc/21671/fd
     total 0
