@@ -1,15 +1,15 @@
 ## struct
 
-struct complex_struct {
-	double x, y;
-};
+    struct complex_struct {
+        double x, y;
+    };
 
 这一句定义了标识符complex_struct（同样遵循标识符的命名规则），这种标识符在C语言中称为**Tag**，
 这一句定义了标识符complex_struct 是一个复合类型，如果用这个类型名来定义变量，可以这样写：
 
-struct complex_struct {
-	double x, y;
-} z1, z2;
+    struct complex_struct {
+        double x, y;
+    } z1, z2;
 
 如果在定义结构体类型的同时定义了变量，也可以不必写Tag，例如：
 
@@ -34,6 +34,19 @@ Designated Initializer是C99引入的新特性，用于初始化稀疏（Sparse�
 用Designated Initializer语法可以针对每个成员做初始化（Memberwise Initialization），很方便。例如：
 
     struct complex_struct z1 = { .y = 4.0 }; /* z1.x=0.0, z1.y=4.0 */
+
+下面这种定义时初始化不是一个好的选择，
+    
+    typedef  struct tree_node{
+        Node data;
+        Node * left = NULL;
+        Node * right = NULL;
+    }TreeNode;
+
+声明时显式初始化可以有效预防野指针.
+
+    TreeNode adc = {18,NULL,NULL};
+    printf("node value %d %p %p \n",adc.data.age,adc.left,adc.right);
 
 #### 把结构体当作一个函数参数
 
