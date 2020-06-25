@@ -164,3 +164,5 @@ stack.c
 这些函数声明为`External Linkage的`。有些函数只在模块内部使用而不希望被外界访问到，则声明为`Internal Linkage`的。
 
 
+
+

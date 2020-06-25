@@ -210,4 +210,29 @@ soname被写入到了ELF文件中,**所以指定soname需要在制作时进行**
 ### 动态库的优点
 
 - 节省空间
-- 软件升级方便 不必重新编译软件        
+- 软件升级方便 不必重新编译软件     
+
+### 扩展知识：STL 模板库 
+
+STL是`Standard Template Library`的简称，中文名标准模板库，惠普实验室开发的一系列软件的统称。
+它是由`Alexander Stepanov`、`Meng Lee`和`David R Musser`在惠普实验室工作时所开发出来的。
+从根本上说，STL是一些“容器”的集合，这些“容器”有`list`,`vector`,`set`,`map`等，STL也是算法和其他一些组件的集合。
+这里的“容器”和算法的集合指的是**世界上很多聪明人很多年的杰作**。
+STL的目的是标准化组件，这样就不用重新开发，可以使用现成的组件。
+STL是C++的一部分，因此不用安装额外的库文件。
+STL的版本很多，常见的有`HP STL`、`PJ STL`、 `SGI STL`等。
+在C++标准中，STL被组织为下面的13个头文件：
+
+    <algorithm>
+    <deque>
+    <functional>
+    <iterator>
+    <vector>
+    <list>
+    <map>
+    <memory.h>
+    <numeric>
+    <queue>
+    <set>
+    <stack>
+    <utility>   
