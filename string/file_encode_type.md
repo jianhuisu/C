@@ -147,6 +147,10 @@ Unicode规范中定义，每一个文件的最前面分别加入一个表示编�
  - ARM 小端模式 (有些ARM处理器还可以由硬件来选择是大端模式还是小端模式)
  - DSP 小端模式
 
+#### 
+
+todo 网络交互中的字节序
+
 #### 参考文献
 
 原文链接：https://blog.csdn.net/lvxiangan/article/details/8151670

@@ -3,8 +3,8 @@ project(C C)
 
 set(CMAKE_C_STANDARD 11)
 
-# include_directories(data_structure/liner/link_list)
-# include_directories(data_structure/liner/queue)
+# include_directories(data_structure/linear/link_list)
+# include_directories(data_structure/linear/queue)
 # include_directories(data_structure/tree/binary_tree/binary_search_tree)
 # include_directories(link/share_library/stack)
 # include_directories(link/static_library/stack)
