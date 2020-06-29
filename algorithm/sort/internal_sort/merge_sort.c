@@ -93,18 +93,16 @@ void merge_sort(int start,int end)
         int mid = (end + start ) / 2;
         merge_sort(start,mid);
         merge_sort(mid+1,end);
-        if(start == 0 && mid == 0 && end == 1){
-            int a = 1;
-        }
         merge(start,mid,end);
-        //merge(0,2,5);
     }
 }
 
 int main(void)
 {
-    merge_sort(0,9);
-    show(wait_sort,10);
+    merge_sort(0,MAX_SIZE - 1);
+    show(wait_sort,MAX_SIZE);
     return 0;
 
 }
+
+// 算法分析 平均时间复杂度 O(nlogn) 最优时间复杂度 O(nlogn) (当原始序列与期望排序顺序一致时) 最坏时间复杂度 O(nlogn) 辅助存储O(n) 稳定排序.
