@@ -27,6 +27,7 @@ Linux的man很强大，该手册分成很多section，使用man时可以指定�
 
     man 1 ls
     man 3 printf
+    man 2 accept 查看socket编程接口
     
 ### 如何查看一个宏定义的位置
 
