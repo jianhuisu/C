@@ -20,34 +20,40 @@ void show(int * s,int length)
 // 选择排序-简单选择排序 这是学起来最简单的排序方法 ，最符合我们的惯用思维
 // 选择一个序列中的最小值,放在最左边,
 // 在剩余序列中选择最小值，放在剩余序列的最左边
-void simple_select_sort()
+void simple_select_sort(int arr[],int length)
 {
-    int max_v_index;
-    int i;
+    // 从序列中选出最小值放在最左边
+    // 从剩余序列中选出最小值放在最左边
+    // 往复循环 最终得到非递减序列
+    int min_v_index;
     int j;
+    int i;
     int temp;
 
-    for(j = 0;j < MAX_SIZE; j++){
+    for(i = 0;i<length;i++){
+        min_v_index = i;
+        for(j = i+1; j < length;j++){
 
-        max_v_index = j;
-        for(i = j;i < MAX_SIZE;i++){
-            if(wait_sort[max_v_index] > wait_sort[i]){
-                max_v_index = i;
+            // 取两者比较中较小者
+            if(arr[min_v_index] > arr[j]){
+                min_v_index = j;
             }
         }
 
-        temp = wait_sort[j];
-        wait_sort[j] = wait_sort[max_v_index];
-        wait_sort[max_v_index] = temp;
+        temp = arr[i];
+        arr[i] = arr[min_v_index];
+        arr[min_v_index] = temp;
+
     }
 
 }
 
 int main(void)
 {
+    show(wait_sort,10);
     simple_select_sort(wait_sort,10);
-    show(wait_sort,MAX_SIZE);
+    show(wait_sort,10);
     return 0;
 }
 
-// 简单选择排序的 时间复杂度 最优 O(n^2) 最坏 O(n^2) 平均 O(n^2) ，辅助空间O(1) ，适用场景： n较小时使用
+// 简单选择排序的 时间复杂度 最优 O(n^2) 最坏 O(n^2) 平均 O(n^2) ，辅助空间O(1) 不是稳定排序 适用场景： n较小时使用

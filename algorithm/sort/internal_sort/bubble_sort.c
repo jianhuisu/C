@@ -1,5 +1,6 @@
 #include <stdio.h>
 #define MAX_SIZE 10
+int wait_sort[MAX_SIZE] = {11,15,20,13,17,65,27,49,99,18};
 
 void show(int * s,int length)
 {
@@ -16,47 +17,33 @@ void show(int * s,int length)
 // 每趟排序通过 两两比较 选择一个最小值移动到左边
 // 然后从剩余序列中 继续 两两比较 继续选取最小值移动到左边
 
+void bubble_sort(int arr[],int length)
+{
+    // 从序列最左边开始两两比较,取较大着向右移动,一趟排序(即 内循环 for() 整体执行完成一次 ),可以得出最大值，存储在最右边
+    // 往复循环 得出次大值，存储在倒数第二位 ...
+
+    int j;
+    int i;
+    int temp;
+
+    for(i = length - 1;i > 0;i--){
+        for(j = 0; j < i;j++){
+            if(arr[j] > arr[j+1]){
+                temp = arr[j+1];
+                arr[j+1] = arr[j];
+                arr[j]  = temp;
+            }
+        }
+    }
+
+}
 
 int main(void)
 {
-    int wait_sort[MAX_SIZE] = {49,38,13,97,76,65,27,49,99,18};
     show(wait_sort,MAX_SIZE);
-
-    int i ,j,tmp;
-
-    for(i=0;i<MAX_SIZE;i++){
-
-        // optimize : for(j = 0;j< MAX_SIZE - 1;j++){
-        for(j = 0;j< MAX_SIZE - (i+1);j++){
-            if(wait_sort[j] > wait_sort[j+1]){
-                tmp = wait_sort[j+1];
-                wait_sort[j+1] = wait_sort[j];
-                wait_sort[j]   = tmp;
-            }
-        }
-        show(wait_sort,MAX_SIZE);
-    }
-
-
-    /*
-        循环部分还可以再次优化 逻辑上更加清晰
-        for(j=9;j>0;j--){
-        for(i=0;i<j;i++){
-
-            if(waitToSort[i] > waitToSort[i+1]){
-                tmp = waitToSort[i];
-                waitToSort[i] = waitToSort[i+1];
-                waitToSort[i+1] = tmp;
-            }
-        }
-    }
-
-    */
-
-
-
+    bubble_sort(wait_sort,MAX_SIZE);
     show(wait_sort,MAX_SIZE);
     return 0;
 }
 
-// 算法分析 平均时间复杂度 O(n^2) 最优时间复杂度 O(n) (当原始序列与期望排序顺序一致时) 最坏时间复杂度 O(n^2) (当原始序列与期望排序顺序逆序时) 辅助存储O(1):只借助了temp变量 稳定排序.
+// 冒泡排序的 时间复杂度 最优 O(n) 最坏 O(n^2) 平均 O(n^2) ，辅助空间O(1) 是稳定排序 适用场景： n较小时使用
