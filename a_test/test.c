@@ -2,9 +2,6 @@
 #define MAX_SIZE 10
 int wait_sort[MAX_SIZE] = {11,15,20,13,17,65,27,49,99,18};
 
-//#define MAX_SIZE 3
-//int wait_sort[MAX_SIZE] = {15,11,20};
-
 void show(int * s,int length)
 {
     int i ;
@@ -14,58 +11,62 @@ void show(int * s,int length)
 
     printf("\n");
 }
-
-void swap(int * i,int * j)
+void swap(int * a,int *b)
 {
-    int temp;
-    temp = *i;
-    *i = *j;
-    *j = temp;
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
-void build_min_heap(int a[],int cur_node_index,int len)
+void build_big_heap(int a[],int i,int len)
 {
     int child;
-    // 保障端有序
-    while(cur_node_index < len){
-        child = cur_node_index * 2 + 1;
+    child = i*2 + 1;
 
-        // 较小者上升
-        if(child < len && a[child] > a[child + 1]){
+    while( child < len){
+
+        if( (child + 1) < len && a[child] < a[child+1]){
             child++;
         }
 
-        // 三个数中只需要确定最小值即可,根 左 右 三个结点 ，需要两次相互比较即可以得出，如果需要确定三个数的大小顺序，则需要比较三次
-        if(child < len && a[child] < a[cur_node_index]){
-            swap(&a[child],&a[cur_node_index]);
-            cur_node_index = child;
+        if(a[i] < a[child]){
+            swap(&a[child],&a[i]);
+            i = child;
+            child = child *2 + 1;
         } else {
             break;
         }
+
     }
-
-
 }
 
-void heap_sort(int a[],int len)
+// 目的 ： 升序排列数组
+// step.1 构建大顶堆
+// step.2 交换根结点 与 末尾终端结点
+// step.3 对剩元素继续构建大顶堆,交换...
+void heap_sort(int a[],int length)
 {
-    // 按降序排列 将无序序列构建为小顶堆
     int i;
-    for( i = len/2 - 1;i >= 0; i--){
-        build_min_heap(a,i,len - 1);
+
+    // build
+    for(i = length / 2 - 1;i>= 0 ;i--){
+        build_big_heap(a,i,length);
     }
 
-    // 交换 根结点 与 叶子结点
-    for(i = len - 1;i>= 0;i--){
-        swap(&a[0],&a[i]);
-        build_min_heap(a,0,i - 1);
+    // swap
+    for(i = length - 1;i>=0 ; i--){
+        swap(&a[i],&a[0]);
+        build_big_heap(a,0,i );
     }
 
 }
 
 int main(void)
 {
+    // merge_sort
+    // quick_sort
+    // heap_sort
     heap_sort(wait_sort,MAX_SIZE);
     show(wait_sort,MAX_SIZE);
-    return 0;
+   return 0;
 }
