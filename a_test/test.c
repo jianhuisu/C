@@ -1,72 +1,92 @@
 #include <stdio.h>
-#define MAX_SIZE 10
-int wait_sort[MAX_SIZE] = {11,15,20,13,17,65,27,49,99,18};
+#include <stdlib.h>
+#include <malloc.h>
 
-void show(int * s,int length)
+typedef char  ElemType; //数据类型
+
+//定义二叉树结构
+typedef struct BiTreeNode
 {
-    int i ;
-    for(i=0;i<length;i++){
-        printf(" %d ",s[i]);
-    }
+    ElemType  data; //数据域
+    struct BiTreeNode *lChild;
+    struct BiTreeNode *rChlid;
+} BiTreeNode, *BiTree;
 
-    printf("\n");
-}
-void swap(int * a,int *b)
+//先序创建二叉树
+void CreateBiTree(BiTree *T)//要改变指针，所以要把指针的地址传进来
 {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
+    ElemType ch;
 
-void build_big_heap(int a[],int i,int len)
-{
-    int child;
-    child = i*2 + 1;
+    ch = getchar(); // 只能输入一个英文字符
+    getchar();  // 去除输入缓冲中遗留的换行/回车
 
-    while( child < len){
+    if (ch == '#'){
+        *T = NULL;
+        return;
+    } else if(ch == 'Q'){
+        // abort input
+        return;
+    } else {
 
-        if( (child + 1) < len && a[child] < a[child+1]){
-            child++;
+        *T = (BiTree)malloc(sizeof(BiTreeNode));
+
+        //检查是否分配成功
+        if (!(*T)){
+            exit(-1);
         }
-
-        if(a[i] < a[child]){
-            swap(&a[child],&a[i]);
-            i = child;
-            child = child *2 + 1;
-        } else {
-            break;
-        }
-
+        
+        (*T)->data = ch;
+        CreateBiTree(&(*T)->lChild);//printf("输入%d的左孩子：", ch);
+        CreateBiTree(&(*T)->rChlid);//printf("输入%d的右孩子：", ch);
     }
 }
 
-// 目的 ： 升序排列数组
-// step.1 构建大顶堆
-// step.2 交换根结点 与 末尾终端结点
-// step.3 对剩元素继续构建大顶堆,交换...
-void heap_sort(int a[],int length)
+//先序遍历二叉树
+void PreOrder(BiTree T)
 {
-    int i;
-
-    // build
-    for(i = length / 2 - 1;i>= 0 ;i--){
-        build_big_heap(a,i,length);
-    }
-
-    // swap
-    for(i = length - 1;i>=0 ; i--){
-        swap(&a[i],&a[0]);
-        build_big_heap(a,0,i );
-    }
-
+    if (T == NULL)
+        return ;
+    printf("%c ", T->data);
+    PreOrder(T->lChild);
+    PreOrder(T->rChlid);
 }
 
+//中序遍历二叉树
+void InOrderBiTree(BiTree T)
+{
+    if (T == NULL)
+        return ;
+    InOrderBiTree(T->lChild);
+    printf("%c ", T->data);
+    InOrderBiTree(T->rChlid);
+}
+
+//后序遍历二叉树
+void PostOrderBiTree(BiTree T)
+{
+    if (T == NULL)
+        return ;
+    PostOrderBiTree(T->lChild);
+    PostOrderBiTree(T->rChlid);
+    printf("%c ", T->data);
+}
+
+//主函数
 int main(void)
 {
-    // merge_sort
-    // quick_sort
-    // heap_sort
-    heap_sort(wait_sort,MAX_SIZE);
-    show(wait_sort,MAX_SIZE);
-   return 0;
+    BiTree T;
+
+    printf("请输入先序遍历顺序下各个结点的值,#表示没有结点:\n");
+    CreateBiTree(&T);
+    printf("先序遍历二叉树:\n");
+    PreOrder(T);
+    printf("\n");
+    printf("中序遍历二叉树:\n");
+    InOrderBiTree(T);
+    printf("\n");
+    printf("后序遍历二叉树:\n");
+    PostOrderBiTree(T);
+    printf("\n");
+
+    return 0;
 }
