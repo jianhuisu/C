@@ -124,12 +124,16 @@ n.
 ##### 备注：
 
  - 笔记内容多为自己的总结,因为还处于学习阶段，所以不能保证其正确性，仅供参考
- - 强推 宋劲杉老师的书 《Linux C编程一站式学习》 https://docs.huihoo.com/c/linux-c-programming/index.html
- - 必须掌握的库 string库 数学计算库 io库 **线程库 进程库 信号处理**
- - 我想在能挣钱的同时 做有意义的事 不再浪费自己的青春 
- - 我的终极目标是可以流畅阅读C项目源码
+ - 强推 宋劲杉老师的书 《Linux C编程一站式学习》 https://docs.huihoo.com/c/linux-c-programming/index.html 
  
 #### 学习曲线
+  
+2 - 3 树
+
+最短路径
+关键路径
+最小代价生成树
+
   
 #### 待深入研究问题
    

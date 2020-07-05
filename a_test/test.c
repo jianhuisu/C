@@ -1,92 +1,79 @@
+// 快排
+// 归并排序
+// 堆排序
+
 #include <stdio.h>
-#include <stdlib.h>
-#include <malloc.h>
+#define MAX_SIZE 10
+int wait_sort[MAX_SIZE] = {11,2,53,4,5,6,79,8,19,90};
 
-typedef char  ElemType; //数据类型
-
-//定义二叉树结构
-typedef struct BiTreeNode
+void show(int s[],int len)
 {
-    ElemType  data; //数据域
-    struct BiTreeNode *lChild;
-    struct BiTreeNode *rChlid;
-} BiTreeNode, *BiTree;
-
-//先序创建二叉树
-void CreateBiTree(BiTree *T)//要改变指针，所以要把指针的地址传进来
-{
-    ElemType ch;
-
-    ch = getchar(); // 只能输入一个英文字符
-    getchar();  // 去除输入缓冲中遗留的换行/回车
-
-    if (ch == '#'){
-        *T = NULL;
-        return;
-    } else if(ch == 'Q'){
-        // abort input
-        return;
-    } else {
-
-        *T = (BiTree)malloc(sizeof(BiTreeNode));
-
-        //检查是否分配成功
-        if (!(*T)){
-            exit(-1);
-        }
-        
-        (*T)->data = ch;
-        CreateBiTree(&(*T)->lChild);//printf("输入%d的左孩子：", ch);
-        CreateBiTree(&(*T)->rChlid);//printf("输入%d的右孩子：", ch);
+    int i;
+    for(i = 0;i<len;i++){
+        printf("%d ",s[i]);
     }
+
+    printf("\n");
 }
 
-//先序遍历二叉树
-void PreOrder(BiTree T)
+void swap(int * a,int * b)
 {
-    if (T == NULL)
-        return ;
-    printf("%c ", T->data);
-    PreOrder(T->lChild);
-    PreOrder(T->rChlid);
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
-//中序遍历二叉树
-void InOrderBiTree(BiTree T)
+// 相较于普通的选择排序 可以快速的选出序列中的极值
+// 从叶结点开始向下查找极值 ，大者上移
+void build_max_heap(int * s,int start,int end)
 {
-    if (T == NULL)
+    int a = s[start];
+    if(start >= end){
         return ;
-    InOrderBiTree(T->lChild);
-    printf("%c ", T->data);
-    InOrderBiTree(T->rChlid);
+    }
+
+    int child = 2 * start + 1;
+
+    while( child < end ){
+        if((child + 1) < end && s[child+1] > s[child]){
+            child++;
+        }
+
+        if(s[start] < s[child]){
+            swap(&s[start],&s[child]);
+            child = 2 * child + 1;
+        } else {
+            break;
+        }
+    }
+
+
 }
 
-//后序遍历二叉树
-void PostOrderBiTree(BiTree T)
+// 堆排序
+// 将序列构建为一个堆,则堆顶是极值,将堆顶元素与序列末尾元素交换, 重复该过程
+// 升序 大顶堆
+// 降序 小顶堆
+void sort(int s[],int len)
 {
-    if (T == NULL)
-        return ;
-    PostOrderBiTree(T->lChild);
-    PostOrderBiTree(T->rChlid);
-    printf("%c ", T->data);
+    int i;
+    // 构建一个全序列的大顶堆  从叶子结点学习 插入排序+冒泡排序 下沉小值(其实就是逆向上浮大值)
+    for(i = len / 2 - 1 ;i>=0;i--){
+        build_max_heap(s,i,len);
+    }
+
+    // 交换 继续构建大顶堆
+    for(i = len - 1 ;i>=0;i--){
+        swap(&s[0],&s[i]);
+        build_max_heap(s,0,i);
+    }
+
 }
 
-//主函数
 int main(void)
 {
-    BiTree T;
-
-    printf("请输入先序遍历顺序下各个结点的值,#表示没有结点:\n");
-    CreateBiTree(&T);
-    printf("先序遍历二叉树:\n");
-    PreOrder(T);
-    printf("\n");
-    printf("中序遍历二叉树:\n");
-    InOrderBiTree(T);
-    printf("\n");
-    printf("后序遍历二叉树:\n");
-    PostOrderBiTree(T);
-    printf("\n");
-
+    show(wait_sort,MAX_SIZE);
+    sort(wait_sort,MAX_SIZE);
+    show(wait_sort,MAX_SIZE);
     return 0;
 }
