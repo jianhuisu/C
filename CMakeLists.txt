@@ -8,8 +8,17 @@ set(CMAKE_C_STANDARD 11)
 # include_directories(data_structure/tree/binary_tree/binary_search_tree)
 # include_directories(link/share_library/stack)
 # include_directories(link/static_library/stack)
-# include_directories(tool_makefile)
+include_directories(a_test)
 
 ## develop demo
 add_executable(test
-        a_test/test.c)
+        a_test/tree.h
+        a_test/tree.c
+        a_test/test.c
+        )
+
+add_executable(main
+        a_test/tree.h
+        a_test/tree.c
+        a_test/main.c
+        )

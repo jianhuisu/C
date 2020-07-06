@@ -51,7 +51,7 @@ CMake生成makefile依赖于一个叫做CMakeLists.txt的文件,该文件的内�
 
 ### 实操
 
-1 CLion -> File -> New CMake Project From Source 打开你解压完毕的源码目录,这一步CLion会在新项目根目录中创建一个CMakeLists.txt文件,cmake-build-debug文件夹,
+1 `CLion -> File -> New CMake Project From Source` 打开你解压完毕的源码目录,这一步CLion会在新项目根目录中创建一个CMakeLists.txt文件,cmake-build-debug文件夹,
 当从 Source 导入生成CMake Project时,CLion会扫描 Source中所有含有`main`函数的.c文件，作为参数添加到`add_executable`命令中,如下
 
     add_executable(< name> [WIN32] [MACOSX_BUNDLE]

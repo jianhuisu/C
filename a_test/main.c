@@ -1,84 +1,72 @@
-//
-// 二叉树顺序存储结构实现
-//
-
-// 使用一组地址连续的存储的单元一次自上而下，自左而右的存储 完全二叉树上的结点元素
-// 即：使用C的一维数组,按自上而下，自左而右的顺序 存储完全二叉树上的结点元素 ，一维数组的每个分量对应二叉树的一个结点。
-// 将完全二叉树上编号为i的结点元素存储在以上一维数组中下标为(i-1)的分量中,结点为空时将数组中对应分量的值设置为0
-//  eg. 假设二叉树的结点值为一个正整数.现在有一个一维C整数数组 int seq_binary_tree[8] = ['a','b','c','d','e','f','g']
-//  按照先序遍历的顺序解析，构建为一个满二叉树，其图形结构为
-/**
- *                      a
- *                   b     c
- *                 d  e  f  g
- * */
-// 结论：
-// 1 顺序存储结构仅适用于完全二叉树,一课普通的单枝二叉树会存储大量冗余的 0 分量.
-// 2 单独一种的遍历方式无法唯一的确定一棵二叉树的形态，前序和中序遍历的结果合在一起可以唯一确定二叉树的形态，也就是说根据遍历结果可以构造出二叉树
-
 #include <stdio.h>
-
-#define MAX_TREE_SIZE 100  // 二叉树可以容纳的最大节点数 2^k - 1 = 100  ,所以深度k最大为7
-
+#include "tree.h"
+static void ppp(Item item);
 
 int main(void)
 {
-    printf("hello \n");
-}
+    printf("二叉树的遍历 \n");
 
-// 存储结构：二叉链表/三叉链表 （这里的叉指 结点结构中包含了几个指针域）
-// 逻辑结构：二叉树（普通二叉树/完全二叉树/满二叉树）
+    /*
+                C
+          A            E
+      nil    B     D      nil
 
-// 在具体的应用中采用什么存储结构(什么样的 struct 构成) 取决于你要做什么操作.
+     */
 
+    Item original_seq[] = {
+            {"C"},
+            {"A"},
+            {"B"},
+            {"E"},
+            {"D"},
+            {"F"},
+    };
 
+    int len = sizeof(original_seq) / sizeof(Item);
+    Tree cbt;
+    InitializeTree(&cbt);
+    int i;
 
+    for(i =  0;i < len;i++){
+        AddItem(&original_seq[i],&cbt);
+    }
 
-#include <stdio.h>
+    printf("二叉树共有 %d 个结点 \n",TreeItemCount(&cbt));
+    printf("树的深度为 %d \n",TreeDepth(cbt.root));
 
-typedef int Status;
+    printf("先序遍历:");
+    PreOrder(cbt.root,ppp);
+    puts("");
 
-// 真实存储结点值的
-typedef struct  node_value{
-    int age;
-}Node;
+    printf("中序遍历:");
+    InOrder(cbt.root,ppp);
+    puts("");
 
-typedef  struct tree_node{
-    Node data;    // 二叉树结点的数据域
-    Node * left;  // 二叉树结点的左指针域
-    Node * right; // 二叉树结点的右指针域
-}TreeNode;
+    printf("后序遍历:");
+    PostOrder(cbt.root,ppp);
+    puts("");
 
-typedef struct binary_tree{
-    TreeNode root;
-    int count;
-}T;
-
-// 二叉树的操作
-// 构建一棵二叉树
-// 销毁一棵二叉树
-// 清空一个二叉树
-// 判断二叉树是否为空
-
-// 先序遍历二叉树
-// 中序遍历二叉树
-// 后序遍历二叉树
-// 层序遍历二叉树
-
-// 插入一个结点：感觉在叶子结点上进行插入操作还比较好 在非叶子结点上进行替换操作比较卡靠谱
-// 删除一个结点
-
-// 获取二叉树的高度/深度
-// 获取二叉树的结点个数
-
-// 在二叉树中查找一个结点
-// 返回一个结点的双亲
-
-
-int main(void)
-{
-    TreeNode adc = {18,NULL,NULL};
-    printf("node value %d %p %p \n",adc.data.age,adc.left,adc.right);
+    DeleteAll(&cbt);
     return 0;
 }
 
+static void ppp(Item item)
+{
+    printf("%s ",item.name);
+}
+
+// 广度优先遍历二叉树，使用队列实现
+void breadthFirstOrder(BinaryTreeNode* root)
+{
+    if(root==NULL) return;
+    queue<BinaryTreeNode*> queue;
+    queue.push(root);
+    while(!queue.empty())
+    {
+        BinaryTreeNode* cur=queue.front();
+        cout<<" "<<cur->m_key;//visit
+        queue.pop();
+        if(cur->m_pLeft!=NULL) queue.push(cur->m_pLeft);
+        if(cur->m_pRight!=NULL) queue.push(cur->m_pRight);
+    }
+}
