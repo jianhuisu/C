@@ -61,7 +61,7 @@
     
 #### RB-tree与Hashtable的区别与选择
 
- - hashtable hash这是一种压缩映射的函数,根据hash(key)函数计算即可以得出key在`顺序表`中的存储位置.这个顺序表就是`hashtable`,`hashtable`的查找操作复杂度为`O(1)`.
+ - `hashtable hash`这是一种压缩映射的函数,根据hash(key)函数计算即可以得出key在`顺序表`中的存储位置.这个顺序表就是`hashtable`,`hashtable`的查找操作复杂度为`O(1)`.
  - 红黑树的查找、插入、删除的时间复杂度最坏为`O(logn)` 
 
 `hashtable`查找速度会比`RB-tree`快，而且查找速度基本和数据量大小无关，属于常数级别,`RB-tree`的查找速度是`log(n)`级别.
