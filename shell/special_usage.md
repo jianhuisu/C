@@ -67,3 +67,12 @@ shell load 顺序 `/etc/profile` `~/.bash_profile`、`~/.bash_login`和`~/.profi
 `:`是一个特殊的命令，称为空命令，该命令不做任何事，但`Exit Status`总是真
 
     if :; then echo "always true"; fi
+    
+#### shell中的特殊变量
+
+ - `$!` 后台最近执行命令的 PID.
+ - `$?` 前台最近命令的结束状态。
+ - `$$` 当前 shell 的 PID 
+ - `$#` 传递给shell脚本的参数数目
+ - `$*` 以一个字符串形式输出所有传递到脚本的参数
+ - `$@` 以`IFS`为分隔符列出所有传递到脚本中的参数
