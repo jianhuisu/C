@@ -1,19 +1,22 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 int main(void)
 {
-    int a = 1;
-    int * pi = &a;
-    int ** pii = &pi;
+    char name[4][5] = {
+            {'a','b','c','d','e'},
+            {'a','b','c','d','e'},
+            {'a','b','c','d','e'},
+            {'a','b','f','d','e'},
+    };
 
-    printf(" %p %d \n",pi,*pi);
-    printf(" %p %p\n",pii,*pii);
+    int i;
+    for(i = 0;i< 4 * 5;i++)
+    {
+        printf("name[%d][%d] => %c ",i/5,i%5,name[i/5][i%5]);
+        if( (i + 1) % 5  == 0 ){
+            printf("\n");
+        }
+    }
 
-    int b = 2;
-    *pi = b;
-    // *指针， 变量存储的常规变量的存储地址.
-    // ** 指向指针的指针,就是二级指针，它第一级指针存储的的内容还是指针，该指针指向
     return 0;
 }
