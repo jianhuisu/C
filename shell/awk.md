@@ -28,6 +28,7 @@
     
     [sujianhui@dev0529 ~]$>awk -F":" '{print "username : " $1}' /etc/passwd
     [sujianhui@dev0529 ~]$>awk -F":" '{print $1 " " $3}' /etc/passwd
+    
 
 ![](.shell_images/90c23419.png)
 
@@ -48,6 +49,12 @@
 之前的`action{}`里都是只有一个`print`,其实`print`只是一个语句，而`action{}`可以有多个语句，以`;`号隔开.其实就是**不换行的类C代码片段**.
 
 ##### 实例
+
+>监测nginx的并发连接数
+
+    [sujianhui@dev0529 bin]$>netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+
+**没明白$NF为什么等于最后一个字段  难道默认 print $NF 等价于 print $最后一个字段的序号？** 
 
 >限定行范围，进行分割打印
 
