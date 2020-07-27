@@ -36,4 +36,8 @@ uniq命令：过滤文件中的重复内容,将去重后的内容显示在终端
  - 正确答案 `sort -nr ip.txt | uniq -c | sort -nr | head -n 3`
  - 错误答案 `uniq -c ip.txt | sort -nr | head -n 3`  
  
+根据访问日志,查看QPS
+
+     `awk '{print $2}' access.log | sort -nr | uniq -c | sort -nr | head -n 3`
+ 
  
