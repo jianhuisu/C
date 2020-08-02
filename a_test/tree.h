@@ -40,6 +40,7 @@ void DeleteAll(Tree * ptree);
 void InOrder(const Trnode * root,void(*pfun)(Item item));
 void PreOrder(const Trnode * root,void(*pfun)(Item item));
 void PostOrder(const Trnode * root,void(*pfun)(Item item));
+void LevelOrder(const Trnode * root,void(*pfun)(Item item));
 int TreeDepth(const Trnode * root);
 
 #endif

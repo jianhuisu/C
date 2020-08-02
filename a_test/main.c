@@ -2,6 +2,28 @@
 #include "tree.h"
 static void ppp(Item item);
 
+
+void FloorPrint(pTreeNode Tree)  //层序遍历
+{
+    pTreeNode temp[100];   //创建pTreeNode指针类型的指针数组
+    int in = 0;
+    int out = 0;
+
+    temp[in++] = Tree;  //先保存二叉树根节点
+
+    while (in > out)
+    {
+        if (temp[out])
+        {
+            cout << temp[out]->data << " → ";
+            temp[in++] = temp[out]->leftPtr;
+            temp[in++] = temp[out]->rightPtr;
+        }
+        out++;
+    }
+}
+
+
 int main(void)
 {
     printf("二叉树的遍历 \n");
@@ -46,6 +68,8 @@ int main(void)
     PostOrder(cbt.root,ppp);
     puts("");
 
+
+
     DeleteAll(&cbt);
     return 0;
 }
@@ -53,20 +77,4 @@ int main(void)
 static void ppp(Item item)
 {
     printf("%s ",item.name);
-}
-
-// 广度优先遍历二叉树，使用队列实现
-void breadthFirstOrder(BinaryTreeNode* root)
-{
-    if(root==NULL) return;
-    queue<BinaryTreeNode*> queue;
-    queue.push(root);
-    while(!queue.empty())
-    {
-        BinaryTreeNode* cur=queue.front();
-        cout<<" "<<cur->m_key;//visit
-        queue.pop();
-        if(cur->m_pLeft!=NULL) queue.push(cur->m_pLeft);
-        if(cur->m_pRight!=NULL) queue.push(cur->m_pRight);
-    }
 }

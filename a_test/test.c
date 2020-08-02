@@ -1,5 +1,6 @@
 #include <stdio.h>
 #define MAX_SIZE 10
+<<<<<<< HEAD
 int wait_sort[MAX_SIZE] = {19,100,34,34,3,43,2,6,8,0,1};
 
 void swap(int * a, int * b){
@@ -53,3 +54,7 @@ int main(){
     sort(wait_sort,0,MAX_SIZE - 1);
     return 0;
 }
+=======
+int wait_sort[MAX_SIZE] = {11,15,20,13,17,65,27,49,99,18};
+
+>>>>>>> 557ee4cd5e0d79731c504255b294f30fc9d2fc55

@@ -174,6 +174,25 @@ void PostOrder(const Trnode * root,void(*pfun)(Item item))
     }
 }
 
+void LevelOrder(const Trnode * root,void(*pfun)(Item item))
+{
+    Trnode temp[100];   //创建pTreeNode指针类型的指针数组
+    int in = 0;
+    int out = 0;
+
+    temp[in++] = *root;  //先保存二叉树根节点
+
+    while (in > out)
+    {
+        if (temp[out] != NULL)
+        {
+            temp[in++] = temp[out]->leftPtr;
+            temp[in++] = temp[out]->rightPtr;
+        }
+        out++;
+    }
+}
+
 /**
  * 我们可以从根结点即左右子树来理解二叉树的深度。对于任意一棵非空二叉树，有如下四种情况：
  * （1）如果一颗树只有一个结点，它的深度是 1；
