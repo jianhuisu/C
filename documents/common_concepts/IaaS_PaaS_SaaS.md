@@ -19,6 +19,11 @@
 
 举例：生活中，几乎我们每一天都在接触SaaS云服务，比如：我们平时使用的苹果手机云服务，网页中的一些云服务等。
 
+
+### ORM 
+
+对象关系映射  Object relation map 无论多么复杂的ORM工具，在精妙与复杂的SQL面前都是浮云.
+
 ### reference material
 
 链接：https://www.jianshu.com/p/686429fec912
