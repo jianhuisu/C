@@ -1,5 +1,7 @@
 ## 二进制安全
 
+> mei you  shu ju bian jie , lei si yu  tcp yu  udp de qu bie.
+
 在看PHP手册的时候，经常看到一句话”该函数是二进制安全的”。
 
  - 二进制安全是什么呢？

@@ -140,7 +140,11 @@ C 如何查看int占用几个字节
  - `p+1`，假如p的值是`1000`，那么`p+1`的值是1004了，因为`int`类型是4字节的.这里的1代表 指向下一个int的地址,所以要+4字节.
  - `ch+1`，假如p的值是`1000`，那么`p+1`的值是1001了，因为`char`类型是1字节的。
 
+> ye jiu shi shuo , zhi zhen shi zi dai lei xing de . bu tong lei xing zhi jian de zhi zhen bu ke yi  zhi jie yun suan. 
+
 注意：指针可以进行 `==` `!=` 运算,但是不可以进行比较运算.
+
+
 
 ### 通用指针 void * 
 

@@ -42,6 +42,23 @@ Intel® 64曾用名EM64T。当前版本的AMD64架构就规定了只用48位地�
 
 原文链接: https://www.zhihu.com/question/28638698/answer/41603886
 
+#### extend question 
+    
+    void main():
+    struct node * new_node = (struct node *)malloc(sizeof( struct node));
+    int a = 1;
+    printf("stack ptr value  %p \n",&a);
+    printf("heap ptr value:  %p \n",new_node);
+
+o ? why pointer length is not equal ?
+    
+    [sujianhui@dev529 linked_list]$>gcc reverse.c && ./a.out 
+    success 0xc3f010 
+    stack ptr value  0x7ffc3c941d4c          => 12 * 4 = 48 bit 
+    heap ptr value:  0xc3f030                =>  6 * 4 = 24 bit
+    
+    
+
 ### 小结
 
 内存芯片上通过电容矩阵来存储数据
