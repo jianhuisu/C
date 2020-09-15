@@ -22,6 +22,26 @@
 
 因为从实参传递来的是数组的起始地址，如果在形参中不说明列数，编译器将无法定位元素的的位置。
 
+eg.2 
+
+    int matrix[][5] = {
+        {1,   4,  7, 11, 15},
+        {2,   5,  8, 12, 19},
+        {3,   6,  9, 16, 22},
+        {10, 13, 14, 17, 24},
+        {18, 21, 23, 26, 30}
+    };
+
+函数签名
+    
+    int searchMatrix(int ** matrix, int matrixRowSize, int matrixColSize, int target) {
+
+使用方式
+
+ - 通过编译 `printf("%d \n",searchMatrix((int **) matrix, row, col, target));`
+ - 无法通过编译 `printf("%d \n",searchMatrix( matrix, row, col, target));` error msg `incompatitable pointer types passing int matrix[5][5] to arguments int ** matrix`  
+
+
 #### 各个维数不固定的二维数组
 
 如果不确定二维数组的维数的话，我们不能使用上面的方法，可以用下面的方法：
