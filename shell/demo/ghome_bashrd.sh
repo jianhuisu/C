@@ -10,5 +10,5 @@ else
 
 # jetbrains idea terminal
 # echo "welcome to jetbrains terminal"
-export PS1="\[\e[36;1m\]\u@\[\e[32;1m\]\H> \[\e[0m\]"
+export PS1="\[\e[36;1m\]\u@\[\e[32;1m\]\h \W]> \[\e[0m\]"
 fi
