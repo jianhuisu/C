@@ -45,8 +45,8 @@ CMake生成makefile依赖于一个叫做CMakeLists.txt的文件,该文件的内�
 1 对照./configure命令生成的makefile,逆推生成CMakeLists.txt
 2 使用./configure 生成的makefile,不需要使用CMake生成新的makefile
 
-第一种思路,很快就会被pass掉，这样搞不但耗时长,而且很容易出问题，得不偿失
-第二种思路,需要将CMakeLists.txt中生成makefile这一环节的rule替换为使用php源码自带的configure侦测脚本生成即可,原理上是可行的
+ - 第一种思路,很快就会被pass掉，这样搞不但耗时长,而且很容易出问题，得不偿失
+ - 第二种思路,需要将CMakeLists.txt中生成makefile这一环节的rule替换为使用php源码自带的configure侦测脚本生成即可,原理上是可行的
 
 
 ### 实操
