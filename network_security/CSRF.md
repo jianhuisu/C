@@ -47,5 +47,9 @@ Example.1
  3. `Hacker:Mallory`又给`User:Alice`发了个邮件：“我行推出了一项新服务，率先体验请点击：`http://good/`”
  4. 如果`User:Alice`登录了，`Hacker:Mallory`就可以利用这个ID了
 
+#### CSRF 令牌 & JavaScript
 
+当构建由 `JavaScript` 驱动的`XHR`请求时，让每一个 `JavaScript HTTP`
+请求时自动附上 `CSRF` 令牌。默认情况下，客户端`js`会使用 `cookie` 中加密的 `XSRF-TOKEN` 的值然后在请求时自动发送 `X-XSRF-TOKEN` 标头.
 
+![](.static_images/08b2ce09.png)
