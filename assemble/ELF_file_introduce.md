@@ -40,6 +40,72 @@
 
 4. 加载器(Loader)根据可执行文件中的Segment信息加载运行这个程序.
 
+
+我们使用readelf工具读取目标文件`hello.o`的`ELF header`与`Section Header Table`.
+
+	[sujianhui@dev529 assemble]$>readelf -a hello.o 
+	ELF Header:
+	  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+	  Class:                             ELF64
+	  Data:                              2's complement, little endian
+	  Version:                           1 (current)
+	  OS/ABI:                            UNIX - System V
+	  ABI Version:                       0
+	  Type:                              REL (Relocatable file)
+	  Machine:                           Advanced Micro Devices X86-64
+	  Version:                           0x1
+	  Entry point address:               0x0
+	  Start of program headers:          0 (bytes into file)
+	  Start of section headers:          256 (bytes into file)
+	  Flags:                             0x0
+	  Size of this header:               64 (bytes)
+	  Size of program headers:           0 (bytes)
+	  Number of program headers:         0
+	  Size of section headers:           64 (bytes)
+	  Number of section headers:         7
+	  Section header string table index: 6
+
+	Section Headers:
+	  [Nr] Name              Type             Address           Offset
+	       Size              EntSize          Flags  Link  Info  Align
+	  [ 0]                   NULL             0000000000000000  00000000
+	       0000000000000000  0000000000000000           0     0     0
+	  [ 1] .text             PROGBITS         0000000000000000  00000040
+	       000000000000000c  0000000000000000  AX       0     0     1
+	  [ 2] .data             PROGBITS         0000000000000000  0000004c
+	       0000000000000000  0000000000000000  WA       0     0     1
+	  [ 3] .bss              NOBITS           0000000000000000  0000004c
+	       0000000000000000  0000000000000000  WA       0     0     1
+	  [ 4] .symtab           SYMTAB           0000000000000000  00000050
+	       0000000000000078  0000000000000018           5     4     8
+	  [ 5] .strtab           STRTAB           0000000000000000  000000c8
+	       0000000000000008  0000000000000000           0     0     1
+	  [ 6] .shstrtab         STRTAB           0000000000000000  000000d0
+	       000000000000002c  0000000000000000           0     0     1
+	Key to Flags:
+	  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+	  L (link order), O (extra OS processing required), G (group), T (TLS),
+	  C (compressed), x (unknown), o (OS specific), E (exclude),
+	  l (large), p (processor specific)
+
+	There are no section groups in this file.
+
+	There are no program headers in this file.
+
+	There are no relocations in this file.
+
+	The decoding of unwind sections for machine type Advanced Micro Devices X86-64 is not currently supported.
+
+	Symbol table '.symtab' contains 5 entries:
+	   Num:    Value          Size Type    Bind   Vis      Ndx Name
+	     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+	     1: 0000000000000000     0 SECTION LOCAL  DEFAULT    1 
+	     2: 0000000000000000     0 SECTION LOCAL  DEFAULT    2 
+	     3: 0000000000000000     0 SECTION LOCAL  DEFAULT    3 
+	     4: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT    1 _start
+
+	No version information found in this file.
+
 ELF格式提供了两种维度的视角,因为两者关心(即需要使用的目标数据不同)
 
  - 链接器视角:链接器把ELF文件看成是Section的集合. 关心`Section Header Table`而不关心`Program Header Table`.
@@ -65,6 +131,16 @@ ELF文件有三种(按照ELF格式进行布局的一类文件)
 
 文件地址：就是代码在文件中的位置
 
+
+#### 变量的存储布局
+
+我们知道，C语言的全局变量如果在代码中没有初始化，就会在程序加载时用0初始化。这种数据属于.bss段，在加载时它和.data段一样都是可读可写的数据，但是在ELF文件中.data段需要占用一部分空间保存初始值，而.bss段则不需要。
+
+也就是说，.bss段在文件中只占一个Section Header而没有对应的Section，程序加载时.bss段占多大内存空间在Section Header中描述。在我们这个例子中没有用到.bss段.
+
+#### 参考资料地址
+
+https://docs.huihoo.com/c/linux-c-programming/ch18s05.html
 
 
 
