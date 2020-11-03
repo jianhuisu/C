@@ -101,7 +101,7 @@
 
     [sujianhui@ bin]$> awk -F, '{sum += $2};END{print sum}' 1.t 
     88
-
+    // awk -F, '{sum += $(NF-1)};END{print sum}' 1.t 
 
 #### 参考资料
 
