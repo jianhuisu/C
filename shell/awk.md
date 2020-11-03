@@ -97,6 +97,12 @@
     ifconfig eth0 | awk -F [" ":]+ 'NR==2{print $4}' 
     ifconfig eth0 | awk -F [" ":]+ '{if(NR == 2)print $4;}' 
 
+求第二列数字之和
+
+    [sujianhui@ bin]$> awk -F, '{sum += $2};END{print sum}' 1.t 
+    88
+
+
 #### 参考资料
 
 https://www.cnblogs.com/ginvip/p/6352157.html
