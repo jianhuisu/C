@@ -26,10 +26,6 @@ UNIX的传统是`Everything is a file`，I/O函数不仅用于读写常规文件
 **在读写设备时通常是不希望有缓冲的**，例如向代表网络设备的文件写数据就是希望数据通过网络设备发送出去，而不希望只写到缓冲区里就算完事儿了.
 当网络设备接收到数据时应用程序也希望第一时间被通知到.
 
-### POSIX 
-
-POSIX（Portable Operating System Interface）是由IEEE制定的标准,致力于统一各种UNIX系统的接口，促进各种UNIX系统向互相兼容的发向发展。
-
 ### 参考地址
 
 http://akaedu.github.io/book/ch28s02.html
