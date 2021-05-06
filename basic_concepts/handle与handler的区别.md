@@ -16,3 +16,7 @@
 hanlder就是一个回调函数(callback)。当某个事件到达时，事先注册的handler会被接收到事件的主体所调用。
 
 	static void foo_handler(int signum)
+
+### 巨人肩膀
+
+https://www.cnblogs.com/idorax/p/6414007.html
